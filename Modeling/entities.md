@@ -157,26 +157,7 @@
 └── `timestamp` (Data e hora exata em que a ação ocorreu)
 
 ## 4. Levantamento dos relacinamentos.
-### **A. Relacionamentos por Embutimento (Embedded Documents)**
-**ShoppingList** ➔ `items` (Array de ShoppingListItem): Os itens necessários para ir ao mercado ficam aninhados diretamente na lista de compras.
- 
-**Purchase** ➔ `purchasedItems` (Array de PurchaseItem): Os produtos e preços unitários efetivamente adquiridos ficam guardados dentro do registro da compra.
 
- **User** ➔ `adressUser` (Endereço): O endereço pertence exclusivamente ao perfil do usuário (relação 1 para 1) e é um objeto interno do documento.
-
-### **B. Relacionamentos por Referência (References / Normalized)**
- **Product** ➔ **Category** (`categoryId`): O produto armazena apenas o ID da categoria a que pertence.
-
- **Inventory** ➔ **Product** (`productId`): O estoque físico da despensa aponta para o produto base do catálogo via ID, evitando duplicar dados a cada lote novo.
-
-**Purchase** ➔ **Market** (`marketId`): O registro de compra aponta para o estabelecimento onde a transação ocorreu usando o ID.
-
-**Transaction** ➔ **Purchase** (`purchaseId`): A transação financeira de pagamento aponta diretamente para a compra que a originou.
- 
-**ActivityLog** ➔ **User** (`userId`): O log de atividade guarda o ID do usuário que executou a ação, mantendo uma coleção isolada.
-
-### **C. Relacionamentos Lógicos / Dinâmicos**
- **Budget** ➔ **Transaction** (Por Período/Mês): O orçamento define um limite (`limitAmount`) para um determinado `month`. A aplicação faz o cruzamento dinâmico somando as transações (Transaction) cuja data corresponda àquele mês de referência, sem restrição de ID físico fixo.
 
 ## 5. Documentos incorporados.
 
