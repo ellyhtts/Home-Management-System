@@ -30,8 +30,153 @@
 | **ActivityLog** (Log de Atividade) | Histórico de ações realizadas dentro da plataforma. | Rastrear ações importantes (quem deletou, editou ou comprou algo) para auditoria e segurança. |
 
 ## 3.Levantamento dos atributos
+### **User** (Usuário da casa)
+ 
+├── `_id` (Identificador único)
+ 
+├── `name` (Nome do usuário)
+ 
+├── `email` (E-mail para login)
+ 
+├── `password` (Senha de acesso)
+ 
+└── `addressUser` (Endereço do usuario)  	
+ 
+        	├── `city` (Cidade do usuário)
+ 
+        	├── `district` (Bairro do usuário)
+ 
+        	├── `street` (Rua do usuário)
+ 
+        	└── `houseNumber` (Número da casa do usuário)
+ 
+
+### **Product** (Produto - Catálogo Base)
+ 
+├── `_id` (Identificador único)
+ 
+├── `name` (Nome do produto, ex: Leite Integral)
+ 
+└── `categoryId` (Referência à Categoria do produto)
+ 
+ 
+ 
+### **Category** (Categoria para organização)
+ 
+├── `_id` (Identificador único)
+ 
+└── `name` (Nome da categoria, ex: Laticínios, Limpeza)
+ 
+ 
+ 
+### **Inventory** (Estoque Físico armazenado em casa)
+ 
+├── `_id` (Identificador único)
+ 
+├── `productId` (Referência ao Produto cadastrado)
+ 
+├── `quantity` (Quantidade atual disponível na despensa)
+ 
+└── `expirationDate` (Data de validade do lote atual)
+ 
+ 
+ 
+### **ShoppingList** (Lista de Compras para ir ao mercado)
+ 
+├── `_id` (Identificador único)
+ 
+├── `title` (Nome da lista, ex: Compras de Agosto)
+ 
+├── `date` (Data em que a lista foi criada)
+ 
+└── `items` (Array contendo a entidade 'ShoppingListItem')
+ 
+ 	├── `productId` (Referência ao Produto que precisa ser comprado)
+ 
+	└── `quantityNeeded` (Quantidade necessária)
+ 
+ 
+ 
+### **Market** (Mercado ou Estabelecimento)
+ 
+├── `_id` (Identificador único)
+ 
+├── `name` (Nome do mercado, ex: Assaí, Atacadão)
+ 
+└── `location` (Endereço ou bairro do estabelecimento)
+ 
+ 
+ 
+### **Purchase** (Registro da Compra Realizada)
+ 
+├── `_id` (Identificador único)
+ 
+├── `marketId` (Referência ao Mercado onde a compra foi feita)
+ 
+├── `date` (Data exata da ida ao mercado)
+ 
+└── `purchasedItems` (Array contendo a entidade 'PurchaseItem')
+ 
+	 ├── `productId` (Referência ao Produto que foi efetivamente comprado)
+ 
+	 └── `unitPrice` (Preço unitário de cada produto)
+ 
+ 
+ 
+ 
+### **Budget** (Orçamento ou Teto de Gastos)
+ 
+├── `_id` (Identificador único)
+ 
+├── `month` (Mês de referência, ex: Agosto)
+ 
+└── `limitAmount` (Valor máximo que a família decidiu gastar)
+ 
+ 
+ 
+### **Transaction** (Transação Financeira / Pagamento)
+ 
+├── `_id` (Identificador único)
+ 
+├── `purchaseId` (Referência à Compra que gerou este gasto)
+ 
+├── `amount` (Valor total efetivamente pago)
+ 
+└── `date` (Data em que o pagamento foi registrado)
+ 
+ 
+ 
+### **ActivityLog** (Log de Atividades do Sistema)
+ 
+├── `_id` (Identificador único)
+ 
+├── `userId` (Referência ao Usuário que fez a ação)
+ 
+├── `action` (Descrição da ação, ex: "Marcou item como comprado")
+ 
+└── `timestamp` (Data e hora exata em que a ação ocorreu)
 
 ## 4. Levantamento dos relacinamentos.
+### **A. Relacionamentos por Embutimento (Embedded Documents)**
+**ShoppingList** ➔ `items` (Array de ShoppingListItem): Os itens necessários para ir ao mercado ficam aninhados diretamente na lista de compras.
+ 
+**Purchase** ➔ `purchasedItems` (Array de PurchaseItem): Os produtos e preços unitários efetivamente adquiridos ficam guardados dentro do registro da compra.
+
+ **User** ➔ `adressUser` (Endereço): O endereço pertence exclusivamente ao perfil do usuário (relação 1 para 1) e é um objeto interno do documento.
+
+### **B. Relacionamentos por Referência (References / Normalized)**
+ **Product** ➔ **Category** (`categoryId`): O produto armazena apenas o ID da categoria a que pertence.
+
+ **Inventory** ➔ **Product** (`productId`): O estoque físico da despensa aponta para o produto base do catálogo via ID, evitando duplicar dados a cada lote novo.
+
+**Purchase** ➔ **Market** (`marketId`): O registro de compra aponta para o estabelecimento onde a transação ocorreu usando o ID.
+
+**Transaction** ➔ **Purchase** (`purchaseId`): A transação financeira de pagamento aponta diretamente para a compra que a originou.
+ 
+**ActivityLog** ➔ **User** (`userId`): O log de atividade guarda o ID do usuário que executou a ação, mantendo uma coleção isolada.
+
+### **C. Relacionamentos Lógicos / Dinâmicos**
+ **Budget** ➔ **Transaction** (Por Período/Mês): O orçamento define um limite (`limitAmount`) para um determinado `month`. A aplicação faz o cruzamento dinâmico somando as transações (Transaction) cuja data corresponda àquele mês de referência, sem restrição de ID físico fixo.
 
 ## 5. Documentos incorporados.
 
