@@ -179,5 +179,23 @@
  **Budget** ➔ **Transaction** (Por Período/Mês): O orçamento define um limite (`limitAmount`) para um determinado `month`. A aplicação faz o cruzamento dinâmico somando as transações (Transaction) cuja data corresponda àquele mês de referência, sem restrição de ID físico fixo.
 
 ## 5. Documentos incorporados.
+**Documentos Incorporados (Embedded):**  Utilizados quando os dados secundários pertencem exclusivamente ao documento pai, são consultados ao mesmo tempo  na maioria dos casos de uso e possuem crescimento previsível e limitado (1 para 1  ou 1 para poucos), ideal para informações que nascem e morrem com o registro principal, como os itens de uma mesma compra.
+
+**Coleções Separadas (collections):**  Utilizadas para entidades independentes que são armazenadas de forma separada e conectadas apenas por um código de identificação. É ideal para informações que crescem sem parar ou que precisam ser reutilizadas em várias partes do sistema, como o cadastro de usuários ou produtos.
+
 
 ## 6. Justificativa das decisões tomadas.
+| Entidade | Decisão | Justificativa  |
+|---|---|---|
+| **User** (Usuário) |Collections separadas | O usuário é o centro do sistema,  o ID do usuário precisa ser apontado por varias  partes do banco. Se estivesse  dentro de uma tarefa, o restante do sistema não conseguiria acessá-lo.  |
+| **Product** (Produto) | Collections separadas | O produto precisa existir no sistema mesmo que ele não esteja em nenhuma lista de compras e  precisa de uma tabela central para gerenciar e controlar  os itens. |
+| **Category** (Categoria) | Collections separadas | mantém uma base padronizada e organizada no sistema, evitando que os produtos sejam cadastrados com divergências de nomes(ex: limpeza e produtos de limpeza). |
+| **Inventory** (Estoque) | Collections separadas  | Ele lida com o controle de diversos lotes com diferentes datas de validade (expirationDate) para o mesmo produto, separar a coleção permite que ele faça buscas rápidas no catálogo de produtos. |
+| **ShoppingList** (Lista de Compras) | Collections separadas | Manter uma coleção independente permite acumular o histórico de compras da casa ao longo dos meses sem lotar outros documentos, evitando estourar o limite de tamanho do banco de dados.  |
+| **ShoppingListItem** (Item da Lista) | Embedded | O item não existe sozinho, ele só faz sentido enquanto estiver dentro de uma lista específica. Se a lista for apagada, os itens somem com ela. |
+| **Market** (Mercado) | Collections separadas | O mercado é uma entidade que existe sem depender de compras ativa ou não, e  precisa ser cadastrado apenas uma vez no sistema (ex: Supermercado Félix ou Atacadão) para ficar disponível para toda a família. |
+| **Purchase** (Compra) | Collections separadas | Uma compra é um registro financeiro e logístico único (ex: "Compra do Mês de Abril"). E  precisa ser armazenada de forma isolada para não poluir outros documentos do sistema. |
+| **PurchaseItem** (Item da Compra) | Embedded | O item comprado não possui independência fora daquela transação específica. Se o registro daquela compra for excluído, os itens vinculados a ela perdem o sentido e deixam de existir automaticamente. |
+| **Budget** (Orçamento) | Collections separadas | Mantém metas de gastos mensais/anuais para análises financeiras e gestão do lar, mantendo em uma coleção própria para controle em tempo real. |
+| **Transaction** (Transação) | Collections separadas | Registro de fluxo de entrada e saída, dinheiro. Mantê-la em uma coleção própria permite que o sistema filtre e gere relatórios de gastos do lar. |
+| **ActivityLog** (Log de Atividade) | Collections separadas | Logs são gerados a cada clique ou alteração no sistema. Mantê-los em uma coleção própria garante que esse fluxo não atrapalhe a performance das tabelas principais. |
