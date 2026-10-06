@@ -1,6 +1,4 @@
 use("home_inventory_db")
-// VALIDAÇÃO DA MÁQUINA:
-// switched to db home_inventory_db
 
 db.categories.insertMany([
   { name: "Laticínios" },
