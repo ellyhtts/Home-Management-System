@@ -39,3 +39,27 @@ db.transactions.find({
     { date: { $gte: ISODate("2026-10-01T00:00:00Z") } }
   ]
 });
+
+// 3. ARRAYS, EMBEDDED DOCUMENTS E ORDENAÇÃO
+
+
+// 3.1 Procura listas que tenham algum item com quantidade maior ou igual a 5
+db.shopping_lists.find({
+  "items.quantityNeeded": { $gte: 5 }
+});
+
+// 3.2 Procura compras com pelo menos um item que custou mais de 8 reais
+db.purchases.find({
+  purchasedItems: {
+    $elemMatch: { unitPrice: { $gt: 8.00 } }
+  }
+});
+
+// 3.3 Ordena todas as transações da mais cara para a mais barata
+db.transactions.find().sort({ amount: -1 });
+
+// 3.4 Pega o título e os itens das listas, ordenando pelas mais recentes
+db.shopping_lists.find(
+  {},
+  { title: 1, items: 1, date: 1, _id: 0 }
+).sort({ date: -1 });
