@@ -13,8 +13,8 @@ O principal objetivo desta solução é otimizar o controle de suprimentos da ca
 
 ## Integrantes da Equipe
 - Amanda Ellen Lopes Lima (ellyhtts)
-- Adriana dos Santos Pereir (adriiana-dev)
-- Diná Borges Azevedo (dinaazvd’s)
+- Adriana dos Santos Pereira (adriiana-dev)
+- Diná Borges Azevedo (dinaazvd)
 - Maria Fabiana Silva Martins (Fabiana-mfsm)
 
 
