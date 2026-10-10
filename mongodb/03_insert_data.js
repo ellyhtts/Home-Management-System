@@ -25,15 +25,15 @@ db.users.insertOne({
     city: "Feira de Santana",
     district: "Centro",
     street: "Rua Exemplo",
-    houseNumber: 123
+    houseNumber: NumberInt(123)
   }
 })
 
 db.inventory.insertMany([
-  { productId: db.products.findOne({ name: "Arroz Integral 1kg" })._id, quantity: 3, expirationDate: ISODate("2027-05-10") },
-  { productId: db.products.findOne({ name: "Feijão Carioca 1kg" })._id, quantity: 2, expirationDate: ISODate("2027-02-15") },
-  { productId: db.products.findOne({ name: "Detergente Líquido 500ml" })._id, quantity: 5, expirationDate: ISODate("2028-10-01") },
-  { productId: db.products.findOne({ name: "Papel Higiênico 4 Rolos" })._id, quantity: 4, expirationDate: ISODate("2030-01-01") }
+  { productId: db.products.findOne({ name: "Arroz Integral 1kg" })._id, quantity: NumberInt(3), expirationDate: ISODate("2027-05-10") },
+  { productId: db.products.findOne({ name: "Feijão Carioca 1kg" })._id, quantity: NumberInt(2), expirationDate: ISODate("2027-02-15") },
+  { productId: db.products.findOne({ name: "Detergente Líquido 500ml" })._id, quantity: NumberInt(5), expirationDate: ISODate("2028-10-01") },
+  { productId: db.products.findOne({ name: "Papel Higiênico 4 Rolos" })._id, quantity: NumberInt(4), expirationDate: ISODate("2030-01-01") }
 ])
 
 db.markets.insertOne({
@@ -45,11 +45,11 @@ db.shopping_lists.insertOne({
   title: "Reposição Mensal de Supermercado",
   date: ISODate("2026-10-01"),
   items: [
-    { productId: db.products.findOne({ name: "Arroz Integral 1kg" })._id, quantityNeeded: 5 },
-    { productId: db.products.findOne({ name: "Feijão Carioca 1kg" })._id, quantityNeeded: 3 },
-    { productId: db.products.findOne({ name: "Farinha de Mandioca 500g" })._id, quantityNeeded: 2 },
-    { productId: db.products.findOne({ name: "Macarrão Espaguete 500g" })._id, quantityNeeded: 4 },
-    { productId: db.products.findOne({ name: "Sabonete em Barra 90g" })._id, quantityNeeded: 6 }
+    { productId: db.products.findOne({ name: "Arroz Integral 1kg" })._id, quantityNeeded: NumberInt(5) isPurchased: false},
+    { productId: db.products.findOne({ name: "Feijão Carioca 1kg" })._id, quantityNeeded: NumberInt(3) isPurchased: false},
+    { productId: db.products.findOne({ name: "Farinha de Mandioca 500g" })._id, quantityNeeded: NumberInt(2) isPurchased: false},
+    { productId: db.products.findOne({ name: "Macarrão Espaguete 500g" })._id, quantityNeeded: NumberInt(4) isPurchased: false},
+    { productId: db.products.findOne({ name: "Sabonete em Barra 90g" })._id, quantityNeeded: NumberInt(6) isPurchased: false}
   ]
 })
 
@@ -58,23 +58,23 @@ db.purchases.insertOne({
   marketId: db.markets.findOne({ name: "Atacadão" })._id,
   date: ISODate("2026-10-02"),
   purchasedItems: [
-    { productId: db.products.findOne({ name: "Arroz Integral 1kg" })._id, unitPrice: 6.50 },
-    { productId: db.products.findOne({ name: "Feijão Carioca 1kg" })._id, unitPrice: 8.90 },
-    { productId: db.products.findOne({ name: "Detergente Líquido 500ml" })._id, unitPrice: 2.49 },
-    { productId: db.products.findOne({ name: "Sabão em Pó 1kg" })._id, unitPrice: 12.90 }
+    { productId: db.products.findOne({ name: "Arroz Integral 1kg" })._id, unitPrice: NumberDecimal("6.50"), quantity: NumberInt(1) },
+    { productId: db.products.findOne({ name: "Feijão Carioca 1kg" })._id, unitPrice: NumberDecimal("8.90"), quantity: NumberInt(1) },
+    { productId: db.products.findOne({ name: "Detergente Líquido 500ml" })._id, unitPrice: NumberDecimal("2.49"), quantity: NumberInt(1) },
+    { productId: db.products.findOne({ name: "Sabão em Pó 1kg" })._id, unitPrice: NumberDecimal("12.90"), quantity: NumberInt(1) }
   ]
 })
 
 
 db.budgets.insertOne({
   month: "Outubro/2026",
-  limitAmount: 800.00
+  limitAmount: NumberDecimal("800.00")
 })
 
 
 db.transactions.insertOne({
   purchaseId: db.purchases.findOne()._id,
-  amount: 30.79,
+  amount: NumberDecimal("30.79"),
   date: ISODate("2026-10-02")
 })
 
