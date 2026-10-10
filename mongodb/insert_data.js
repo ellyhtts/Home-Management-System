@@ -76,8 +76,3 @@ db.transactions.insertOne({
   date: ISODate("2026-10-02")
 })
 
-db.transactions.insertOne({
-  purchaseId: db.purchases.findOne()._id,
-  amount: 30.79,
-  date: ISODate("2026-10-02")
-})
