@@ -1,3 +1,5 @@
+use("home_inventory")
+
 db.categories.insertMany([
   { name: "Alimentos" },
   { name: "Limpeza" },
