@@ -45,11 +45,11 @@ db.shopping_lists.insertOne({
   title: "Reposição Mensal de Supermercado",
   date: ISODate("2026-10-01"),
   items: [
-    { productId: db.products.findOne({ name: "Arroz Integral 1kg" })._id, quantityNeeded: NumberInt(5) isPurchased: false},
-    { productId: db.products.findOne({ name: "Feijão Carioca 1kg" })._id, quantityNeeded: NumberInt(3) isPurchased: false},
-    { productId: db.products.findOne({ name: "Farinha de Mandioca 500g" })._id, quantityNeeded: NumberInt(2) isPurchased: false},
-    { productId: db.products.findOne({ name: "Macarrão Espaguete 500g" })._id, quantityNeeded: NumberInt(4) isPurchased: false},
-    { productId: db.products.findOne({ name: "Sabonete em Barra 90g" })._id, quantityNeeded: NumberInt(6) isPurchased: false}
+    { productId: db.products.findOne({ name: "Arroz Integral 1kg" })._id, quantityNeeded: NumberInt(5), isPurchased: false},
+    { productId: db.products.findOne({ name: "Feijão Carioca 1kg" })._id, quantityNeeded: NumberInt(3), isPurchased: false},
+    { productId: db.products.findOne({ name: "Farinha de Mandioca 500g" })._id, quantityNeeded: NumberInt(2), isPurchased: false},
+    { productId: db.products.findOne({ name: "Macarrão Espaguete 500g" })._id, quantityNeeded: NumberInt(4), isPurchased: false},
+    { productId: db.products.findOne({ name: "Sabonete em Barra 90g" })._id, quantityNeeded: NumberInt(6), isPurchased: false}
   ]
 })
 
