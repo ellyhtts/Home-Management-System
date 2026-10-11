@@ -19,15 +19,45 @@ db.products.insertMany([
 
 db.users.insertOne({
   name: "Maria Fabiana",
-  email: "maria@email.com",
-  password: "hashed_password_segura",
+  email: "fabiana@email.com",
+  password: "Pa$$aroBrav0",
   addressUser: {
     city: "Feira de Santana",
     district: "Centro",
-    street: "Rua Exemplo",
+    street: "Rua Conselheiro Franco",
     houseNumber: NumberInt(123)
+  },
+  {
+    name: "Diná Azevedo",
+    email: "dina@email.com",
+    password: "Aur@Esfer1ca",
+    addressUser: { 
+      city: "Feira de Santana", 
+      district: "Centro", 
+      street: "Rua Conselheiro Franco", 
+      houseNumber: NumberInt(123) }
+  },
+  {
+    name: "Adriana Pereira",
+    email: "adriana@email.com",
+    password: "Camp0Eletr1co",
+    addressUser: { 
+      city: "Feira de Santana", 
+      district: "Centro", 
+      street: "Rua Conselheiro Franco", 
+      houseNumber: NumberInt(123) }
+  },
+  {
+    name: "Amanda Ellen",
+    email: "amanda@email.com",
+    password: "BoL@deEnerg1a",
+    addressUser: { 
+      city: "Feira de Santana", 
+      district: "Centro", 
+      street: "Rua Conselheiro Franco",
+      houseNumber: NumberInt(321) }
   }
-})
+])
 
 db.inventory.insertMany([
   { productId: db.products.findOne({ name: "Arroz Integral 1kg" })._id, quantity: NumberInt(3), expirationDate: ISODate("2027-05-10") },
