@@ -17,15 +17,17 @@ db.products.insertMany([
   { name: "Sabonete em Barra 90g", categoryId: db.categories.findOne({ name: "Higiene Pessoal" })._id }
 ])
 
-db.users.insertMany({
-  name: "Maria Fabiana",
-  email: "maria@email.com",
-  password: "Pa$$aroBrav0",
-  addressUser: {
-    city: "Feira de Santana",
-    district: "Centro",
-    street: "Rua Conselheiro Franco",
-    houseNumber: NumberInt(123)
+db.users.insertMany([
+  {
+    name: "Maria Fabiana",
+    email: "maria@email.com",
+    password: "Pa$$aroBrav0",
+    addressUser: {
+      city: "Feira de Santana",
+      district: "Centro",
+      street: "Rua Conselheiro Franco",
+      houseNumber: NumberInt(123)
+    }
   },
   {
     name: "Diná Azevedo",
@@ -35,7 +37,8 @@ db.users.insertMany({
       city: "Feira de Santana", 
       district: "Centro", 
       street: "Rua Conselheiro Franco", 
-      houseNumber: NumberInt(123) }
+      houseNumber: NumberInt(123) 
+    }
   },
   {
     name: "Adriana Pereira",
@@ -45,7 +48,8 @@ db.users.insertMany({
       city: "Feira de Santana", 
       district: "Centro", 
       street: "Rua Conselheiro Franco", 
-      houseNumber: NumberInt(123) }
+      houseNumber: NumberInt(123) 
+    }
   },
   {
     name: "Amanda Ellen",
@@ -55,7 +59,8 @@ db.users.insertMany({
       city: "Feira de Santana", 
       district: "Centro", 
       street: "Rua Conselheiro Franco",
-      houseNumber: NumberInt(321) }
+      houseNumber: NumberInt(321) 
+    }
   }
 ])
 
