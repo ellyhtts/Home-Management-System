@@ -17,7 +17,7 @@ db.products.insertMany([
   { name: "Sabonete em Barra 90g", categoryId: db.categories.findOne({ name: "Higiene Pessoal" })._id }
 ])
 
-db.users.insertOne({
+db.users.insertMany({
   name: "Maria Fabiana",
   email: "maria@email.com",
   password: "Pa$$aroBrav0",
