@@ -117,15 +117,20 @@ mostrar("2.5 Transações com compra e mercado",
 // 2.6 ActivityLog - User 
 
 if (db.activity_logs.countDocuments() === 0) {
-  const usuario = db.users.findOne({ email: "maria@email.com" });
+  const maria = db.users.findOne({ email: "maria@email.com" });
+  const dina = db.users.findOne({ email: "dina@email.com" });
+  const adriana = db.users.findOne({ email: "adriana@email.com" });
+  const amanda = db.users.findOne({ email: "amanda@email.com" });
+  
   db.activity_logs.insertMany([
-    { userId: usuario._id, action: "Criou a lista de compras 'Reposição Mensal de Supermercado'", timestamp: ISODate("2026-10-01T09:15:00Z") },
-    { userId: usuario._id, action: "Registrou a compra no Atacadão",                              timestamp: ISODate("2026-10-02T14:30:00Z") },
-    { userId: usuario._id, action: "Atualizou o estoque de Arroz Integral 1kg",                   timestamp: ISODate("2026-10-03T08:00:00Z") }
+    { userId: dina._id, action: "Criou a lista de compras 'Reposição Mensal de Supermercado'", timestamp: ISODate("2026-10-01T09:15:00Z") },
+    { userId: maria._id, action: "Registrou a compra física no Atacadão", timestamp: ISODate("2026-10-02T14:30:00Z") },
+    { userId: adriana._id, action: "Atualizou o estoque de Arroz Integral 1kg", timestamp: ISODate("2026-10-03T08:00:00Z") },
+    { userId: amanda._id, action: "Verificou o orçamento e o saldo restante de Outubro", timestamp: ISODate("2026-10-04T10:00:00Z") }
   ]);
 }
 
-mostrar("2.6 Logs com nome do usuário",
+mostrar("2.6 Logs com nome dos usuários",
   db.activity_logs.aggregate([
     { $lookup: { from: "users", localField: "userId", foreignField: "_id", as: "usuario" } },
     { $unwind: "$usuario" },
@@ -133,7 +138,6 @@ mostrar("2.6 Logs com nome do usuário",
     { $sort: { quando: -1 } }
   ]).toArray()
 );
-
 
 // 3. EMBEDDED + REFERÊNCIA
 
