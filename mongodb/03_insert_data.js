@@ -19,7 +19,7 @@ db.products.insertMany([
 
 db.users.insertOne({
   name: "Maria Fabiana",
-  email: "fabiana@email.com",
+  email: "maria@email.com",
   password: "Pa$$aroBrav0",
   addressUser: {
     city: "Feira de Santana",
