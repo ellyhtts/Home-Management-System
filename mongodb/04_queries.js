@@ -9,9 +9,9 @@ db.shopping_lists.find(
 );
 
 
-db.inventory.find(
+db.purchases.find(
   {},
-  { productId: 1, quantity: 1, _id: 0 }
+  { date: 1, purchasedItems: 1, _id: 0 }
 );
 
 
