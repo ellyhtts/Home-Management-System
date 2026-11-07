@@ -11,19 +11,18 @@ public class ActivityLog {
 
     @Id
     private String id;
-    private String action;      // Ex: "CADASTRO_ESTOQUE", "ATUALIZACAO_ESTOQUE"[cite: 14, 25]
-    private String details;     // Descrição detalhada da alteração[cite: 14]
+    private String action;      
+    private String details;    
     private LocalDateTime timestamp;
 
     @DocumentReference
-    private User user;          // Referência para o usuário que executou a ação[cite: 14, 27, 28]
+    private User user;         
 
-    // Construtor padrão obrigatório para o Spring Data
     public ActivityLog() {
         this.timestamp = LocalDateTime.now();
     }
 
-    // Construtor utilitário para facilitar o disparo automático nos Services
+  
     public ActivityLog(String action, String details, User user) {
         this.action = action;
         this.details = details;
