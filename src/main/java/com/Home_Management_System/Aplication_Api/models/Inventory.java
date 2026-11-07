@@ -12,17 +12,17 @@ public class Inventory {
 
     @Id
     private String id;
-    private Integer quantity;          // Wrapper Integer (sem int primitivo)
-    private Integer minimumQuantity;   // Wrapper Integer
-    private String storageLocation;    // Ex: "Despensa", "Geladeira"
+    private Integer quantity;         
+    private Integer minimumQuantity;   
+    private String storageLocation;    
     private LocalDate expirationDate;
     private LocalDateTime lastUpdated;
 
     @DocumentReference
-    private Product product;           // Referência 1: Vincula ao catálogo de produtos
+    private Product product;           
 
     @DocumentReference
-    private User responsibleUser;      // Referência 2: Vincula ao usuário responsável
+    private User responsibleUser;      
 
     // Construtor padrão
     public Inventory() {
