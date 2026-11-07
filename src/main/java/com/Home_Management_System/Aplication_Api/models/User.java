@@ -14,10 +14,10 @@ public class User {
     private String email;
     private String password;
     private String familyRole;
-    private Boolean active; // Wrapper Boolean (não usar o tipo primitivo boolean)[cite: 2, 13]
+    private Boolean active; 
     private LocalDateTime createdAt;
 
-    // Documento embutido (Embedded Document) usando AddressUser (com dois "d"s)[cite: 13, 27]
+   
     private AddressUser addressUser;
 
     public User() {
