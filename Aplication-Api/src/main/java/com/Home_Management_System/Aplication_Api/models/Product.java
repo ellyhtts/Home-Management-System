@@ -1,11 +1,13 @@
 package com.Home_Management_System.Aplication_Api.models;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "products")
+@JsonPropertyOrder({"id", "name", "category"})
 public class Product {
     @Id
     private String id;

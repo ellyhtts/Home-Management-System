@@ -35,6 +35,12 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
     }
 
+    @PostMapping("/lote")
+    public ResponseEntity<List<Product>> criarEmLote(@RequestBody List<Product> products) {
+        List<Product> novosProdutos = productService.salvarEmLote(products);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novosProdutos);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Product> atualizar(@PathVariable String id, @RequestBody Product product) {
         Product produtoAtualizado = productService.atualizar(id, product);

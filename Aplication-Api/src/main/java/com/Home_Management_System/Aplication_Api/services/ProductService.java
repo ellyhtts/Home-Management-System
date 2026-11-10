@@ -44,6 +44,27 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public List<Product> salvarEmLote(List<Product> products) {
+        if (products == null || products.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A lista de produtos não pode estar vazia!");
+        }
+
+        for (Product product : products) {
+            if (product.getName() == null || product.getName().isBlank()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O nome do produto é obrigatório!");
+            }
+            if (product.getCategory() == null || product.getCategory().getId() == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O produto deve estar associado a uma categoria válida!");
+            }
+
+            // Valida se a categoria informada existe no banco
+            categoryRepository.findById(product.getCategory().getId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A categoria informada não existe!"));
+        }
+
+        return productRepository.saveAll(products);
+    }
+
     public Product atualizar(String id, Product produtoAtualizado) {
         Product produtoExistente = buscarPorId(id);
 

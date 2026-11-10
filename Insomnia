@@ -1,0 +1,176 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: home_inventory
+meta:
+  id: wrk_3bd5334fa53c4b7cbd11e428812b5359
+  created: 1794340591883
+  modified: 1794340591883
+  description: ""
+collection:
+  - name: categoria
+    meta:
+      id: fld_24504f8ad06845b996eddaf24a272c19
+      created: 1794340630103
+      modified: 1794340630103
+      sortKey: -1794340630103
+      description: ""
+    children:
+      - url: http://localhost:8080/api/categories/lote
+        name: New Request
+        meta:
+          id: req_ad614e7958144a5ab13acd8cfeb30089
+          created: 1794340633685
+          modified: 1794345278915
+          isPrivate: false
+          description: ""
+          sortKey: -1794340633685
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            [
+              {
+                "id": "1",
+                "name": "Alimentos"
+              },
+              {
+                "id": "2",
+                "name": "Limpeza"
+              },
+              {
+                "id": "3",
+                "name": "Higiene Pessoal"
+              }
+            ]
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: produto
+    meta:
+      id: fld_751dd3aedd9d4c1f9354e4749d2c9c95
+      created: 1794340998881
+      modified: 1794340998881
+      sortKey: -1794340998881
+      description: ""
+    children:
+      - url: http://localhost:8080/api/products/lote
+        name: New Request
+        meta:
+          id: req_a06db72bb1d14dd5b208bbf5fa1631a5
+          created: 1794341002207
+          modified: 1794345284688
+          isPrivate: false
+          description: ""
+          sortKey: -1794341002207
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            [
+              {
+            		"id": "1",
+                "name": "Arroz Integral 1kg",
+                "category": {
+                  "id": "1"
+                }
+              },
+              {
+            		"id": "2",
+                "name": "Feijão Carioca 1kg",
+                "category": {
+                  "id": "1"
+                }
+              },
+              {
+            		"id": "3",
+                "name": "Farinha de Mandioca 500g",
+                "category": {
+                  "id": "1"
+                }
+              },
+              {
+            		"id": "4",
+                "name": "Macarrão Espaguete 500g",
+                "category": {
+                  "id": "1"
+                }
+              },
+              {
+            		"id": "5",
+                "name": "Detergente Líquido 500ml",
+                "category": {
+                  "id": "2"
+                }
+              },
+              {
+                "id": "6",
+            		"name": "Sabão em Pó 1kg",
+                "category": {
+                  "id": "2"
+                }
+              },
+              {
+            		"id": "7",
+                "name": "Papel Higiênico 4 Rolos",
+                "category": {
+                  "id": "3"
+                }
+              },
+              {
+            		"id":"8",
+                "name": "Sabonete em Barra 90g",
+                "category": {
+                  "id": "3"
+                }
+              }
+            ]
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/products
+        name: New Request
+        meta:
+          id: req_bd8194eaaaa24f0f839db8386768f3ff
+          created: 1794345275565
+          modified: 1794345290310
+          isPrivate: false
+          description: ""
+          sortKey: -1794345275565
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_71ba4deaf528af569a58dc655c6fab42f3976a4a
+    created: 1794340591893
+    modified: 1794340591893
+environments:
+  name: Base Environment
+  meta:
+    id: env_71ba4deaf528af569a58dc655c6fab42f3976a4a
+    created: 1794340591887
+    modified: 1794340591887
+    isPrivate: false
