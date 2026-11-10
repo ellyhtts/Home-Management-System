@@ -23,6 +23,12 @@ public class InventoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(inventoryService.salvar(inventory));
     }
 
+    @PostMapping("/lote")
+    public ResponseEntity<List<Inventory>> criarEmLote(@RequestBody List<Inventory> inventories) {
+        List<Inventory> novoInventario = inventoryService.salvarEmLote(inventories);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoInventario);
+    }
+
     @GetMapping
     public ResponseEntity<List<Inventory>> listarTodos() {
         return ResponseEntity.ok(inventoryService.listarTodos());

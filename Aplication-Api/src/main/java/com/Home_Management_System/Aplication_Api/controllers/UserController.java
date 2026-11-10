@@ -36,6 +36,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.criar(user));
     }
 
+    @PostMapping("/lote")
+    public ResponseEntity<List<User>> criarEmLote(@RequestBody List<User> users) {
+        List<User> novosUsers = userService.salvarEmLote(users);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novosUsers);
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<User> atualizar(@PathVariable String id, @RequestBody User user) {

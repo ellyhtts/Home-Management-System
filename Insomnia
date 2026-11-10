@@ -20,7 +20,7 @@ collection:
         meta:
           id: req_ad614e7958144a5ab13acd8cfeb30089
           created: 1794340633685
-          modified: 1794345278915
+          modified: 1794350529322
           isPrivate: false
           description: ""
           sortKey: -1794340633685
@@ -66,7 +66,7 @@ collection:
         meta:
           id: req_a06db72bb1d14dd5b208bbf5fa1631a5
           created: 1794341002207
-          modified: 1794345284688
+          modified: 1794349796063
           isPrivate: false
           description: ""
           sortKey: -1794341002207
@@ -148,10 +148,210 @@ collection:
         meta:
           id: req_bd8194eaaaa24f0f839db8386768f3ff
           created: 1794345275565
-          modified: 1794345290310
+          modified: 1794349776678
           isPrivate: false
           description: ""
           sortKey: -1794345275565
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: inventario
+    meta:
+      id: fld_f1fa4799de8a4043a60a9acd6636c8e3
+      created: 1794350540016
+      modified: 1794350540016
+      sortKey: -1794350540016
+      description: ""
+    children:
+      - url: http://localhost:8080/api/inventories/lote
+        name: New Request
+        meta:
+          id: req_f701939853fe48a69d7725301274c39c
+          created: 1794350542612
+          modified: 1794352400460
+          isPrivate: false
+          description: ""
+          sortKey: -1794350542612
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            [
+              {
+                "quantity": 3,
+                "minimumQuantity": 1,
+                "storageLocation": "Despensa",
+                "expirationDate": "2027-05-10",
+                "product": {
+                  "id": "1"
+                },
+                "responsibleUser": {
+                  "id": "1"
+                }
+              },
+              {
+                "quantity": 2,
+                "minimumQuantity": 1,
+                "storageLocation": "Despensa",
+                "expirationDate": "2027-02-15",
+                "product": {
+                  "id": "2"
+                },
+                "responsibleUser": {
+                  "id": "3"
+                }
+              },
+              {
+                "quantity": 5,
+                "minimumQuantity": 2,
+                "storageLocation": "Área de Serviço",
+                "expirationDate": "2028-10-01",
+                "product": {
+                  "id": "5"
+                },
+                "responsibleUser": {
+                  "id": "2"
+                }
+              },
+              {
+                "quantity": 4,
+                "minimumQuantity": 1,
+                "storageLocation": "Banheiro",
+                "expirationDate": "2030-01-01",
+                "product": {
+                  "id": "7"
+                },
+                "responsibleUser": {
+                  "id": "4"
+                }
+              }
+            ]
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: usuario
+    meta:
+      id: fld_a65832ad74d9446286a702935a5a9d67
+      created: 1794350589279
+      modified: 1794350589279
+      sortKey: -1794350589279
+      description: ""
+    children:
+      - url: http://localhost:8080/api/users/lote
+        name: New Request
+        meta:
+          id: req_22a9dbe426f441e59f5ab9e13c6fa653
+          created: 1794350594339
+          modified: 1794352838080
+          isPrivate: false
+          description: ""
+          sortKey: -1794350594339
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            [
+              {
+            		"id":"1",
+                "name": "Maria Fabiana",
+                "email": "maria@email.com",
+                "password": "Pa$$aroBrav0",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 123
+                }
+              },
+              {
+            			"id":"2",
+                "name": "Diná Azevedo",
+                "email": "dina@email.com",
+                "password": "Aur@Esfer1ca",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 123
+                }
+              },
+              {
+            			"id":"3",
+                "name": "Adriana Pereira",
+                "email": "adriana@email.com",
+                "password": "Camp0Eletr1co",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 123
+                }
+              },
+              {
+            			"id":"4",
+                "name": "Amanda Ellen",
+                "email": "amanda@email.com",
+                "password": "BoL@deEnerg1a",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 321
+                }
+              }
+            ]
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/users
+        name: New Request
+        meta:
+          id: req_c14be628cd44426d916317c3520b637c
+          created: 1794352528189
+          modified: 1794352540162
+          isPrivate: false
+          description: ""
+          sortKey: -1794352528189
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/users/3
+        name: New Request
+        meta:
+          id: req_597d0846e2894873b3c94617ebc6e096
+          created: 1794352598871
+          modified: 1794352607062
+          isPrivate: false
+          description: ""
+          sortKey: -1794352598871
         method: GET
         settings:
           renderRequestBody: true

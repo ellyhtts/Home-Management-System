@@ -17,6 +17,25 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public List<User> salvarEmLote(List<User> users) {
+        if (users == null || users.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A lista de utilizadores não pode estar vazia!");
+        }
+
+        for (User user : users) {
+            if (user.getEmail() == null || user.getEmail().isBlank()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O e-mail do utilizador é obrigatório!");
+            }
+
+            // Valida se já existe um utilizador cadastrado com este e-mail
+            if (userRepository.existsByEmail(user.getEmail())) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Já existe um utilizador cadastrado com o e-mail: " + user.getEmail());
+            }
+        }
+
+        return userRepository.saveAll(users);
+    }
+
     public List<User> listarTodos() {
         return userRepository.findAll();
     }

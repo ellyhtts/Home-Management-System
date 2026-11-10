@@ -81,6 +81,28 @@ public class InventoryService {
         return itemSalvo;
     }
 
+    public List<Inventory> salvarEmLote(List<Inventory> inventories) {
+        if (inventories == null || inventories.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A lista de inventário não pode estar vazia!");
+        }
+
+        for (Inventory inv : inventories) {
+            if (inv.getQuantity() == null || inv.getQuantity() < 0) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A quantidade do inventário é obrigatória e não pode ser negativa!");
+            }
+            if (inv.getProduct() == null || inv.getProduct().getId() == null || inv.getProduct().getId().isBlank()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O produto e o seu ID são obrigatórios!");
+            }
+            if (inv.getResponsibleUser() != null && inv.getResponsibleUser().getId() != null) {
+                // Valida se o utilizador responsável existe
+                userRepository.findById(inv.getResponsibleUser().getId())
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utilizador responsável não encontrado!"));
+            }
+        }
+
+        return inventoryRepository.saveAll(inventories);
+    }
+
     public Inventory atualizar(String id, Inventory inventoryAtualizado) {
         buscarPorId(id); // Garante que o item existe antes de atualizar
         inventoryAtualizado.setId(id);
