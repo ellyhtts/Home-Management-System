@@ -1,0 +1,7 @@
+
+
+#### 2.8 Excluir Item do Estoque (DELETE - Sucesso)
+
+* **Método:** `DELETE`
+* **URL:** `http://localhost:8080/api/inventories/COLE_AQUI_O_ID_DO_ITEM_ESTOQUE`
+* **Status esperado:** `204 No Content`
