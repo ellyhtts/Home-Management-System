@@ -26,7 +26,7 @@
 | **Purchase** (Compra) | Registro oficial da visita ao supermercado. | Consolidar a compra, registrando a data, o local e o valor total gasto. |
 | **PurchaseItem** (Item da Compra) | Detalhe individual do que foi colocado no carrinho. | Gravar o preço unitário pago e a quantidade real adquirida no momento da compra. |
 | **Budget** (Orçamento) | Meta financeira estabelecida para a residência. | Limitar o teto de gastos disponível mensalmente para compras e despensa. |
-| **Transaction** (Transação) | O pagamento gerado por uma compra. | Registrar a saída do dinheiro e o método de pagamento utilizado. |
+| **Transaction** (Transação) | O pagamento gerado por uma compra. | Registrar a saída do dinheiro vinculada à compra e a data do pagamento. |
 | **ActivityLog** (Log de Atividade) | Histórico de ações realizadas dentro da plataforma. | Rastrear ações importantes (quem deletou, editou ou comprou algo) para auditoria e segurança. |
 
 ## 3.Levantamento dos atributos
