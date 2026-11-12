@@ -1,0 +1,630 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: home_inventory
+meta:
+  id: wrk_03cc2066c21842a5a5f45c5dcd199ea2
+  created: 1794437452044
+  modified: 1794437452044
+  description: ""
+collection:
+  - name: categoria
+    meta:
+      id: fld_8d344d003e644b10b5c3436e635892be
+      created: 1794340630103
+      modified: 1794340630103
+      sortKey: -1794340630103
+      description: ""
+    children:
+      - url: http://localhost:8080/api/categories/lote
+        name: New Request
+        meta:
+          id: req_809c956ec1dd40af99ad5d44a2f748bd
+          created: 1794340633685
+          modified: 1794350529322
+          isPrivate: false
+          description: ""
+          sortKey: -1794340633685
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            [
+              {
+                "id": "1",
+                "name": "Alimentos"
+              },
+              {
+                "id": "2",
+                "name": "Limpeza"
+              },
+              {
+                "id": "3",
+                "name": "Higiene Pessoal"
+              }
+            ]
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: produto
+    meta:
+      id: fld_ad3c8b51b79a40298fa3013c5f2ff615
+      created: 1794340998881
+      modified: 1794340998881
+      sortKey: -1794340998881
+      description: ""
+    children:
+      - url: http://localhost:8080/api/products/lote
+        name: New Request
+        meta:
+          id: req_54f789e84a4f43d9b74f222ca6aef394
+          created: 1794341002207
+          modified: 1794438062246
+          isPrivate: false
+          description: ""
+          sortKey: -1794341002207
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            [
+              {
+            		"id": "1",
+                "name": "Arroz Integral 1kg",
+                "category": {
+                  "id": "1"
+                }
+              },
+              {
+            		"id": "2",
+                "name": "Feijão Carioca 1kg",
+                "category": {
+                  "id": "1"
+                }
+              },
+              {
+            		"id": "3",
+                "name": "Farinha de Mandioca 500g",
+                "category": {
+                  "id": "1"
+                }
+              },
+              {
+            		"id": "4",
+                "name": "Macarrão Espaguete 500g",
+                "category": {
+                  "id": "1"
+                }
+              },
+              {
+            		"id": "5",
+                "name": "Detergente Líquido 500ml",
+                "category": {
+                  "id": "2"
+                }
+              },
+              {
+                "id": "6",
+            		"name": "Sabão em Pó 1kg",
+                "category": {
+                  "id": "2"
+                }
+              },
+              {
+            		"id": "7",
+                "name": "Papel Higiênico 4 Rolos",
+                "category": {
+                  "id": "3"
+                }
+              },
+              {
+            		"id":"8",
+                "name": "Sabonete em Barra 90g",
+                "category": {
+                  "id": "3"
+                }
+              }
+            ]
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/products
+        name: New Request
+        meta:
+          id: req_2660df0081f94bde91f3b8c63e7ca748
+          created: 1794345275565
+          modified: 1794349776678
+          isPrivate: false
+          description: ""
+          sortKey: -1794345275565
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: inventario
+    meta:
+      id: fld_8368edce2fbc4473a9e4f3edfe65ad08
+      created: 1794350540016
+      modified: 1794350540016
+      sortKey: -1794350540016
+      description: ""
+    children:
+      - url: http://localhost:8080/api/inventories/lote
+        name: cadastra item no estoque
+        meta:
+          id: req_51d645da34134ca298fa6d836e97e15e
+          created: 1794350542612
+          modified: 1794439320454
+          isPrivate: false
+          description: ""
+          sortKey: -1794350542612
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            [
+              {
+                "quantity": 3,
+                "minimumQuantity": 1,
+                "storageLocation": "Despensa",
+                "expirationDate": "2027-05-10",
+                "product": {
+                  "id": "1"
+                },
+                "responsibleUser": {
+                  "id": "1"
+                }
+              },
+              {
+                "quantity": 2,
+                "minimumQuantity": 1,
+                "storageLocation": "Despensa",
+                "expirationDate": "2027-02-15",
+                "product": {
+                  "id": "2"
+                },
+                "responsibleUser": {
+                  "id": "3"
+                }
+              },
+              {
+                "quantity": 5,
+                "minimumQuantity": 2,
+                "storageLocation": "Área de Serviço",
+                "expirationDate": "2028-10-01",
+                "product": {
+                  "id": "5"
+                },
+                "responsibleUser": {
+                  "id": "2"
+                }
+              },
+              {
+                "quantity": 4,
+                "minimumQuantity": 1,
+                "storageLocation": "Banheiro",
+                "expirationDate": "2030-01-01",
+                "product": {
+                  "id": "7"
+                },
+                "responsibleUser": {
+                  "id": "4"
+                }
+              }
+            ]
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories
+        name: busca geral do estoque
+        meta:
+          id: req_39542c1a48a24aa996ad92b2adf2f95a
+          created: 1794438802611
+          modified: 1794439620348
+          isPrivate: false
+          description: ""
+          sortKey: -1794438802611
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories
+        name: Bloquear Quantidade Negativa
+        meta:
+          id: req_62674fff0a284a0db7433990e6fdfea8
+          created: 1794439361929
+          modified: 1794439413063
+          isPrivate: false
+          description: ""
+          sortKey: -1794439361929
+        method: POST
+        body:
+          mimeType: application/json
+          text: |
+            {
+              "quantity": -2,
+              "minimumQuantity": 1,
+              "storageLocation": "Despensa",
+              "expirationDate": "2027-05-10",
+              "product": {
+                "id": "COLE_AQUI_O_ID_DO_ARROZ"
+              },
+              "responsibleUser": {
+                "id": "COLE_AQUI_O_ID_DA_DINA"
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories
+        name: Produto Inexistente
+        meta:
+          id: req_65aed99e3c0d48c584b4972855c2bf81
+          created: 1794439431286
+          modified: 1794439498104
+          isPrivate: false
+          description: ""
+          sortKey: -1794439431286
+        method: POST
+        body:
+          mimeType: application/json
+          text: |
+            {
+              "quantity": 5,
+              "minimumQuantity": 2,
+              "storageLocation": "Despensa",
+              "expirationDate": "2027-05-10",
+              "product": {
+                "id": "000000000000000000000000"
+              },
+              "responsibleUser": {
+                "id": "2"
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories/6af4f6299f385db17e4b67be
+        name: "busca por id "
+        meta:
+          id: req_bba564f3f4394482b27411b8f875a5d5
+          created: 1794439523751
+          modified: 1794439708175
+          isPrivate: false
+          description: ""
+          sortKey: -1794395700741
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories/estoque-baixo
+        name: busca item com baixo estoque
+        meta:
+          id: req_1110c5b855354d4db7804902fa4f6a5f
+          created: 1794439745681
+          modified: 1794439770795
+          isPrivate: false
+          description: ""
+          sortKey: -1794417251676
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories/6af4f6299f385db17e4b67be
+        name: atualizar item do estoque
+        meta:
+          id: req_46c3c274501c43b3a4ba10f4a21206c3
+          created: 1794439793492
+          modified: 1794439876753
+          isPrivate: false
+          description: ""
+          sortKey: -1794439793492
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "quantity": 10,
+              "minimumQuantity": 4,
+              "storageLocation": "Armário Superior",
+              "expirationDate": "2027-12-31",
+              "product": {
+                "id": "1"
+              },
+              "responsibleUser": {
+                "id": "2"
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories/6af4f6299f385db17e4b67be
+        name: New Request
+        meta:
+          id: req_180907c3993e4028b9c49941e386c539
+          created: 1794439897752
+          modified: 1794439939385
+          isPrivate: false
+          description: ""
+          sortKey: -1794439897752
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: usuario
+    meta:
+      id: fld_5fd7e64f5e3f4d3ba2e3e6e325d9a2c4
+      created: 1794350589279
+      modified: 1794350589279
+      sortKey: -1794350589279
+      description: ""
+    children:
+      - url: http://localhost:8080/api/users/lote
+        name: adiciona usuários
+        meta:
+          id: req_08deba706aef4f58bdd219bb84082947
+          created: 1794350594339
+          modified: 1794438766253
+          isPrivate: false
+          description: ""
+          sortKey: -1794350594339
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            [
+              {
+            		"id":"1",
+                "name": "Maria Fabiana",
+                "email": "maria@email.com",
+                "password": "Pa$$aroBrav0",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 123
+                }
+              },
+              {
+            			"id":"2",
+                "name": "Diná Azevedo",
+                "email": "dina@email.com",
+                "password": "Aur@Esfer1ca",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 123
+                }
+              },
+              {
+            			"id":"3",
+                "name": "Adriana Pereira",
+                "email": "adriana@email.com",
+                "password": "Camp0Eletr1co",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 123
+                }
+              },
+              {
+            			"id":"4",
+                "name": "Amanda Ellen",
+                "email": "amanda@email.com",
+                "password": "BoL@deEnerg1a",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 321
+                }
+              }
+            ]
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/users
+        name: busca tudo
+        meta:
+          id: req_fd9824e3d65d42b79f01e6e7bf4c84fc
+          created: 1794352528189
+          modified: 1794438738164
+          isPrivate: false
+          description: ""
+          sortKey: -1794352528189
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/users/3
+        name: busca por id
+        meta:
+          id: req_36f3048af5a84226b70b87ca43ab1270
+          created: 1794352598871
+          modified: 1794438728164
+          isPrivate: false
+          description: ""
+          sortKey: -1794352598871
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/users/lote
+        name: nao permite add email duplicado
+        meta:
+          id: req_dd7d291b2849417f9e971a578999c110
+          created: 1794439258087
+          modified: 1794439258087
+          isPrivate: false
+          description: ""
+          sortKey: -1794350568475.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            [
+              {
+            		"id":"1",
+                "name": "Maria Fabiana",
+                "email": "maria@email.com",
+                "password": "Pa$$aroBrav0",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 123
+                }
+              },
+              {
+            			"id":"2",
+                "name": "Diná Azevedo",
+                "email": "dina@email.com",
+                "password": "Aur@Esfer1ca",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 123
+                }
+              },
+              {
+            			"id":"3",
+                "name": "Adriana Pereira",
+                "email": "adriana@email.com",
+                "password": "Camp0Eletr1co",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 123
+                }
+              },
+              {
+            			"id":"4",
+                "name": "Amanda Ellen",
+                "email": "amanda@email.com",
+                "password": "BoL@deEnerg1a",
+                "addressUser": {
+                  "city": "Feira de Santana",
+                  "district": "Centro",
+                  "street": "Rua Conselheiro Franco",
+                  "houseNumber": 321
+                }
+              }
+            ]
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_be29fc688be24d42beffb2915ec28fb4
+    created: 1794340591893
+    modified: 1794340591893
+environments:
+  name: Base Environment
+  meta:
+    id: env_9df32aa7d72a48219ba965ccbeaf574d
+    created: 1794340591887
+    modified: 1794340591887
+    isPrivate: false
