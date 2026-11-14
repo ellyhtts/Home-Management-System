@@ -19,7 +19,7 @@
 | **User** (Usuário) | Indivíduo da casa com acesso à plataforma. | Autenticar o acesso e registrar os responsáveis pelas despesas ou alterações no sistema. |
 | **Product** (Produto) | Catálogo base com dados fixos dos itens do mercado. | Padronizar as informações dos itens. |
 | **Category** (Categoria) | Classificação macro do produto. | Organizar o catálogo e facilitar filtros (ex: Laticínios, Limpeza). |
-| **Inventory** (Estoque) | Representação física dos produtos guardados em casa. | Controlar o volume atual dos itens e disparar alertas de escassez. |
+| **Inventory** (Estoque) | Representação física dos produtos guardados em casa. | Controlar o volume atual dos itens, definir quantidades mínimas de segurança, registrar locais de armazenamento, prazos de validade e auditar os responsáveis pelas atualizações. |
 | **ShoppingList** (Lista de Compras) | Agrupamento de itens que estão em falta. | Planejar a ida ao supermercado e organizar as necessidades de reposição. |
 | **ShoppingListItem** (Item da Lista) | Produto específico vinculado à lista de compras. | Informar a quantidade necessária de um produto específico e se já foi comprado. |
 | **Market** (Mercado) | Estabelecimento físico ou online de compras. | Manter o cadastro de locais frequentes para comparar o histórico de preços. |
@@ -73,11 +73,19 @@
  
 ├── `_id` (Identificador único)
  
-├── `productId` (Referência ao Produto cadastrado)
+├── `quantity` (Quantidade atual disponível em estoque)
  
-├── `quantity` (Quantidade atual disponível na despensa)
+├── `minimumQuantity` (Quantidade mínima de segurança para alerta de escassez)
  
-└── `expirationDate` (Data de validade do lote atual)
+├── `storageLocation` (Local físico onde o item está guardado, ex: Despensa)
+ 
+├── `expirationDate` (Data de validade do lote atual)
+ 
+├── `lastUpdated` (Data e hora da última atualização do registro)
+ 
+├── `product` (Referência ao Produto associado via `@DocumentReference`)
+ 
+└── `responsibleUser` (Referência ao Usuário responsável pela atualização via `@DocumentReference`)
  
  
  
