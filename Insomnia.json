@@ -1,46 +1,377 @@
 type: collection.insomnia.rest/5.0
 schema_version: "5.1"
-name: home_inventory
+name: Home_Inventory
 meta:
-  id: wrk_03cc2066c21842a5a5f45c5dcd199ea2
-  created: 1794437452044
-  modified: 1794437452044
+  id: wrk_466a63f55af8477f80a57a5b005a32c1
+  created: 1794351261802
+  modified: 1794351261802
   description: ""
 collection:
-  - name: categoria
+  - name: Category
     meta:
-      id: fld_8d344d003e644b10b5c3436e635892be
-      created: 1794340630103
-      modified: 1794340630103
-      sortKey: -1794340630103
+      id: fld_95d38aefd340410c8b6f245ce3ef2f77
+      created: 1794570339714
+      modified: 1794601403379
+      sortKey: -1794568849381.75
       description: ""
     children:
-      - url: http://localhost:8080/api/categories/lote
-        name: New Request
+      - url: http://localhost:8080/api/categories
+        name: criar categoria Alimentos (201)
         meta:
-          id: req_809c956ec1dd40af99ad5d44a2f748bd
-          created: 1794340633685
-          modified: 1794350529322
+          id: req_6d055300c9974c4ab2a01ab205dda029
+          created: 1794568918517
+          modified: 1794611945619
           isPrivate: false
           description: ""
-          sortKey: -1794340633685
+          sortKey: -1794570349840
         method: POST
         body:
           mimeType: application/json
-          text: |-
+          text: '{"name":"Alimentos"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/categories
+        name: criar categoria Limpeza (201)
+        meta:
+          id: req_3ccc928a70944a2ba3633795495d67c8
+          created: 1794569494708
+          modified: 1794611963581
+          isPrivate: false
+          description: ""
+          sortKey: -1794570349790
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{ "name": "Limpeza" }'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/categories
+        name: criar categoria Higiene Pessoal (201)
+        meta:
+          id: req_71ffefb0eb0a456eabaeb43e2b9b75b6
+          created: 1794569500924
+          modified: 1794611980508
+          isPrivate: false
+          description: ""
+          sortKey: -1794570349765
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{ "name": "Higiene Pessoal" }'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/categories/6af6f512a625f6790b17722d
+        name: " atualizar categoria (200)"
+        meta:
+          id: req_7fba57e34cd24434b28064ea970d1605
+          created: 1794569668346
+          modified: 1794612050042
+          isPrivate: false
+          description: ""
+          sortKey: -1794570349759.5312
+        method: PUT
+        body:
+          mimeType: application/json
+          text: '{"name":"Alimentos Basicos"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/categories/6af6f56aa625f6790b17722f
+        name: " categoria por id (200)"
+        meta:
+          id: req_06176eb18882421fab547b9f8cb374a5
+          created: 1794569685452
+          modified: 1794612032006
+          isPrivate: false
+          description: ""
+          sortKey: -1794570349760.3125
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/categories
+        name: listar categorias (200)
+        meta:
+          id: req_6535502ff4034697adf50437f65ef4e0
+          created: 1794569775552
+          modified: 1794612006901
+          isPrivate: false
+          description: ""
+          sortKey: -1794570349761.875
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/categories
+        name: categoria nome repetido (409)
+        meta:
+          id: req_b1beefd29d6f45ad87811f44f569002d
+          created: 1794569906844
+          modified: 1794612085643
+          isPrivate: false
+          description: ""
+          sortKey: -1794570349759.1406
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"name":"Alimentos Basicos"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/categories
+        name: categoria nome vazio (400)
+        meta:
+          id: req_91203a7e0e1f48acb5057e0c0226dfc3
+          created: 1794569984875
+          modified: 1794612108097
+          isPrivate: false
+          description: ""
+          sortKey: -1794570349758.9453
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"name":""}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/categories/000000000000000000000000
+        name: categoria inexistente (404)
+        meta:
+          id: req_0159506742f9408d90a40a61aff5c2df
+          created: 1794570051586
+          modified: 1794612129407
+          isPrivate: false
+          description: ""
+          sortKey: -1794570349758.8477
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/categories
+        name: categoria teste
+        meta:
+          id: req_7d0ba42cddb8473ea7cf4cf6f2d6e1e3
+          created: 1794610886512
+          modified: 1794612141727
+          isPrivate: false
+          description: ""
+          sortKey: -1794570349758.75
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{ "name": "Teste Exclusao" }'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/categories/6af796e6a78beda4c858505e
+        name: New Request
+        meta:
+          id: req_f86e5286df52445cb36c14b2928a4144
+          created: 1794610940966
+          modified: 1794610984425
+          isPrivate: false
+          description: ""
+          sortKey: -1794570349340
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Product
+    meta:
+      id: fld_17514c0ad6b64250a7d41161bb4e3d74
+      created: 1794570543925
+      modified: 1794601048857
+      sortKey: -1794568849281.75
+      description: ""
+    children:
+      - url: http://localhost:8080/api/products/category/6af6f512a625f6790b17722d
+        name: produtos por categoria (200)
+        meta:
+          id: req_cc80cb6e3f44472d9602ab2fa6226de4
+          created: 1794570661623
+          modified: 1794611434330
+          isPrivate: false
+          description: ""
+          sortKey: -1794570661623
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/products/6af7011e712badc973a6ea91
+        name: atualizar produto (200)
+        meta:
+          id: req_ec233b8af8794bcd9d3f0cfbb1a4a192
+          created: 1794570683831
+          modified: 1794611449000
+          isPrivate: false
+          description: ""
+          sortKey: -1794570648903
+        method: PUT
+        body:
+          mimeType: application/json
+          text: '{"name":"Arroz Integral
+            5kg","category":{"id":"6af6f512a625f6790b17722d"}}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/products/6af7011e712badc973a6ea91
+        name: produto por id (200)
+        meta:
+          id: req_a1dc76550d6d47c2afcf9e8bae5bee81
+          created: 1794570710136
+          modified: 1794614219225
+          isPrivate: false
+          description: ""
+          sortKey: -1794570710136
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/products
+        name: listar produtos (200)
+        meta:
+          id: req_5475393017c440fc84b8ea6fd7c03c60
+          created: 1794570717845
+          modified: 1794611397184
+          isPrivate: false
+          description: ""
+          sortKey: -1794570717845
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/products/batch
+        name: criar produtos em lote (201)
+        meta:
+          id: req_dc87521d648d4e33af15f92bf42819f2
+          created: 1794570726012
+          modified: 1794614049430
+          isPrivate: false
+          description: ""
+          sortKey: -1794570726012
+        method: POST
+        body:
+          mimeType: application/json
+          text: >-
             [
-              {
-                "id": "1",
-                "name": "Alimentos"
-              },
-              {
-                "id": "2",
-                "name": "Limpeza"
-              },
-              {
-                "id": "3",
-                "name": "Higiene Pessoal"
-              }
+              { "name": "Arroz Integral 1kg",       "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Feijão Carioca 1kg",       "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Farinha de Mandioca 500g", "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Macarrão Espaguete 500g",  "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Café Torrado 500g",        "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Óleo de Soja 900ml",       "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Detergente Líquido 500ml", "category": { "id": "6af6f556a625f6790b17722e" } },
+              { "name": "Sabão em Pó 1kg",          "category": { "id": "6af6f556a625f6790b17722e" } },
+              { "name": "Papel Higiênico 4 Rolos",  "category": { "id": "6af6f56aa625f6790b17722f" } },
+              { "name": "Sabonete em Barra 90g",    "category": { "id": "6af6f56aa625f6790b17722f" } }
             ]
         headers:
           - name: Content-Type
@@ -53,84 +384,66 @@ collection:
             send: true
             store: true
           rebuildPath: true
-  - name: produto
-    meta:
-      id: fld_ad3c8b51b79a40298fa3013c5f2ff615
-      created: 1794340998881
-      modified: 1794340998881
-      sortKey: -1794340998881
-      description: ""
-    children:
-      - url: http://localhost:8080/api/products/lote
+      - url: http://localhost:8080/api/products/6af7977ca78beda4c858505f
         name: New Request
         meta:
-          id: req_54f789e84a4f43d9b74f222ca6aef394
-          created: 1794341002207
-          modified: 1794438062246
+          id: req_6e6e3d8933754c79b3be349b936b11b8
+          created: 1794570750560
+          modified: 1794614110468
           isPrivate: false
           description: ""
-          sortKey: -1794341002207
+          sortKey: -1794570625551
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/products/batch
+        name: lote vazio (400)
+        meta:
+          id: req_1b651d477d59444fa6fdbd72faa2c579
+          created: 1794573435623
+          modified: 1794611241729
+          isPrivate: false
+          description: ""
+          sortKey: -1794570721928.5
+        method: POST
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/products/batch
+        name: lote repetido (409)
+        meta:
+          id: req_ac20e4dffd4c47f09539d1b192b7ff3b
+          created: 1794573443686
+          modified: 1794611509404
+          isPrivate: false
+          description: ""
+          sortKey: -1794570719886.75
         method: POST
         body:
           mimeType: application/json
-          text: |-
+          text: >-
             [
-              {
-            		"id": "1",
-                "name": "Arroz Integral 1kg",
-                "category": {
-                  "id": "1"
-                }
-              },
-              {
-            		"id": "2",
-                "name": "Feijão Carioca 1kg",
-                "category": {
-                  "id": "1"
-                }
-              },
-              {
-            		"id": "3",
-                "name": "Farinha de Mandioca 500g",
-                "category": {
-                  "id": "1"
-                }
-              },
-              {
-            		"id": "4",
-                "name": "Macarrão Espaguete 500g",
-                "category": {
-                  "id": "1"
-                }
-              },
-              {
-            		"id": "5",
-                "name": "Detergente Líquido 500ml",
-                "category": {
-                  "id": "2"
-                }
-              },
-              {
-                "id": "6",
-            		"name": "Sabão em Pó 1kg",
-                "category": {
-                  "id": "2"
-                }
-              },
-              {
-            		"id": "7",
-                "name": "Papel Higiênico 4 Rolos",
-                "category": {
-                  "id": "3"
-                }
-              },
-              {
-            		"id":"8",
-                "name": "Sabonete em Barra 90g",
-                "category": {
-                  "id": "3"
-                }
-              }
+              { "name": "Arroz Integral 1kg",       "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Feijão Carioca 1kg",       "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Farinha de Mandioca 500g", "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Macarrão Espaguete 500g",  "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Café Torrado 500g",        "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Óleo de Soja 900ml",       "category": { "id": "6af6f512a625f6790b17722d" } },
+              { "name": "Detergente Líquido 500ml", "category": { "id": "6af6f556a625f6790b17722e" } },
+              { "name": "Sabão em Pó 1kg",          "category": { "id": "6af6f556a625f6790b17722e" } },
+              { "name": "Papel Higiênico 4 Rolos",  "category": { "id": "6af6f56aa625f6790b17722f" } },
+              { "name": "Sabonete em Barra 90g",    "category": { "id": "6af6f56aa625f6790b17722f" } }
             ]
         headers:
           - name: Content-Type
@@ -144,15 +457,25 @@ collection:
             store: true
           rebuildPath: true
       - url: http://localhost:8080/api/products
-        name: New Request
+        name: produto teste (200)
         meta:
-          id: req_2660df0081f94bde91f3b8c63e7ca748
-          created: 1794345275565
-          modified: 1794349776678
+          id: req_0205f62f549246059d3bbf5e5b559455
+          created: 1794610432605
+          modified: 1794611891998
           isPrivate: false
           description: ""
-          sortKey: -1794345275565
-        method: GET
+          sortKey: -1794570625563.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Produto Teste",
+              "category": { "id": "6af6f512a625f6790b17722d" }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -161,97 +484,72 @@ collection:
             send: true
             store: true
           rebuildPath: true
-  - name: inventario
+      - url: http://localhost:8080/api/products
+        name: produto categoria inexistente (404)
+        meta:
+          id: req_bbdfdd2394e3489eba6c4cd5c500e199
+          created: 1794611627968
+          modified: 1794611821083
+          isPrivate: false
+          description: ""
+          sortKey: -1794570631464
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"name":"Teste","category":{"id":"000000000000000000000000"}}	'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/products
+        name: " produto nome repetido (409)"
+        meta:
+          id: req_ba8e007d481e40ccb05455d56f1ea500
+          created: 1794611681436
+          modified: 1794611768694
+          isPrivate: false
+          description: ""
+          sortKey: -1794570637277
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"name":"Feijão Carioca
+            1kg","category":{"id":"6af6f512a625f6790b17722d"}}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: User
     meta:
-      id: fld_8368edce2fbc4473a9e4f3edfe65ad08
-      created: 1794350540016
-      modified: 1794350540016
-      sortKey: -1794350540016
+      id: fld_ec629a3fd71e4ff5b4582e15941e7293
+      created: 1794573922316
+      modified: 1794601426249
+      sortKey: -1794568849280.9688
       description: ""
     children:
-      - url: http://localhost:8080/api/inventories/lote
-        name: cadastra item no estoque
+      - url: http://localhost:8080/api/users
+        name: listar usuários (200)
         meta:
-          id: req_51d645da34134ca298fa6d836e97e15e
-          created: 1794350542612
-          modified: 1794439320454
+          id: req_c12ad19e02574fe98566806e4b664356
+          created: 1794568926481
+          modified: 1794609235236
           isPrivate: false
           description: ""
-          sortKey: -1794350542612
-        method: POST
-        body:
-          mimeType: application/json
-          text: |-
-            [
-              {
-                "quantity": 3,
-                "minimumQuantity": 1,
-                "storageLocation": "Despensa",
-                "expirationDate": "2027-05-10",
-                "product": {
-                  "id": "1"
-                },
-                "responsibleUser": {
-                  "id": "1"
-                }
-              },
-              {
-                "quantity": 2,
-                "minimumQuantity": 1,
-                "storageLocation": "Despensa",
-                "expirationDate": "2027-02-15",
-                "product": {
-                  "id": "2"
-                },
-                "responsibleUser": {
-                  "id": "3"
-                }
-              },
-              {
-                "quantity": 5,
-                "minimumQuantity": 2,
-                "storageLocation": "Área de Serviço",
-                "expirationDate": "2028-10-01",
-                "product": {
-                  "id": "5"
-                },
-                "responsibleUser": {
-                  "id": "2"
-                }
-              },
-              {
-                "quantity": 4,
-                "minimumQuantity": 1,
-                "storageLocation": "Banheiro",
-                "expirationDate": "2030-01-01",
-                "product": {
-                  "id": "7"
-                },
-                "responsibleUser": {
-                  "id": "4"
-                }
-              }
-            ]
-        headers:
-          - name: Content-Type
-            value: application/json
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: http://localhost:8080/api/inventories
-        name: busca geral do estoque
-        meta:
-          id: req_39542c1a48a24aa996ad92b2adf2f95a
-          created: 1794438802611
-          modified: 1794439620348
-          isPrivate: false
-          description: ""
-          sortKey: -1794438802611
+          sortKey: -1794573928187
         method: GET
         settings:
           renderRequestBody: true
@@ -261,87 +559,15 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:8080/api/inventories
-        name: Bloquear Quantidade Negativa
+      - url: http://localhost:8080/api/users/6af69a2661b075b9d6530a4a
+        name: usuário por id (200)
         meta:
-          id: req_62674fff0a284a0db7433990e6fdfea8
-          created: 1794439361929
-          modified: 1794439413063
+          id: req_0308fed1c7734f2eaba4cc52f1c60b40
+          created: 1794574042442
+          modified: 1794609253488
           isPrivate: false
           description: ""
-          sortKey: -1794439361929
-        method: POST
-        body:
-          mimeType: application/json
-          text: |
-            {
-              "quantity": -2,
-              "minimumQuantity": 1,
-              "storageLocation": "Despensa",
-              "expirationDate": "2027-05-10",
-              "product": {
-                "id": "COLE_AQUI_O_ID_DO_ARROZ"
-              },
-              "responsibleUser": {
-                "id": "COLE_AQUI_O_ID_DA_DINA"
-              }
-            }
-        headers:
-          - name: Content-Type
-            value: application/json
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: http://localhost:8080/api/inventories
-        name: Produto Inexistente
-        meta:
-          id: req_65aed99e3c0d48c584b4972855c2bf81
-          created: 1794439431286
-          modified: 1794439498104
-          isPrivate: false
-          description: ""
-          sortKey: -1794439431286
-        method: POST
-        body:
-          mimeType: application/json
-          text: |
-            {
-              "quantity": 5,
-              "minimumQuantity": 2,
-              "storageLocation": "Despensa",
-              "expirationDate": "2027-05-10",
-              "product": {
-                "id": "000000000000000000000000"
-              },
-              "responsibleUser": {
-                "id": "2"
-              }
-            }
-        headers:
-          - name: Content-Type
-            value: application/json
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: http://localhost:8080/api/inventories/6af4f6299f385db17e4b67be
-        name: "busca por id "
-        meta:
-          id: req_bba564f3f4394482b27411b8f875a5d5
-          created: 1794439523751
-          modified: 1794439708175
-          isPrivate: false
-          description: ""
-          sortKey: -1794395700741
+          sortKey: -1794573928087
         method: GET
         settings:
           renderRequestBody: true
@@ -351,149 +577,21 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:8080/api/inventories/estoque-baixo
-        name: busca item com baixo estoque
+      - url: http://localhost:8080/api/users
+        name: criar usuário (201)
         meta:
-          id: req_1110c5b855354d4db7804902fa4f6a5f
-          created: 1794439745681
-          modified: 1794439770795
+          id: req_32a82ffb0bef4aec84c682ae817eb00a
+          created: 1794574119234
+          modified: 1794610019217
           isPrivate: false
           description: ""
-          sortKey: -1794417251676
-        method: GET
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: http://localhost:8080/api/inventories/6af4f6299f385db17e4b67be
-        name: atualizar item do estoque
-        meta:
-          id: req_46c3c274501c43b3a4ba10f4a21206c3
-          created: 1794439793492
-          modified: 1794439876753
-          isPrivate: false
-          description: ""
-          sortKey: -1794439793492
-        method: PUT
-        body:
-          mimeType: application/json
-          text: |-
-            {
-              "quantity": 10,
-              "minimumQuantity": 4,
-              "storageLocation": "Armário Superior",
-              "expirationDate": "2027-12-31",
-              "product": {
-                "id": "1"
-              },
-              "responsibleUser": {
-                "id": "2"
-              }
-            }
-        headers:
-          - name: Content-Type
-            value: application/json
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: http://localhost:8080/api/inventories/6af4f6299f385db17e4b67be
-        name: New Request
-        meta:
-          id: req_180907c3993e4028b9c49941e386c539
-          created: 1794439897752
-          modified: 1794439939385
-          isPrivate: false
-          description: ""
-          sortKey: -1794439897752
-        method: DELETE
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-  - name: usuario
-    meta:
-      id: fld_5fd7e64f5e3f4d3ba2e3e6e325d9a2c4
-      created: 1794350589279
-      modified: 1794350589279
-      sortKey: -1794350589279
-      description: ""
-    children:
-      - url: http://localhost:8080/api/users/lote
-        name: adiciona usuários
-        meta:
-          id: req_08deba706aef4f58bdd219bb84082947
-          created: 1794350594339
-          modified: 1794438766253
-          isPrivate: false
-          description: ""
-          sortKey: -1794350594339
+          sortKey: -1794573927987
         method: POST
         body:
           mimeType: application/json
-          text: |-
-            [
-              {
-            		"id":"1",
-                "name": "Maria Fabiana",
-                "email": "maria@email.com",
-                "password": "Pa$$aroBrav0",
-                "addressUser": {
-                  "city": "Feira de Santana",
-                  "district": "Centro",
-                  "street": "Rua Conselheiro Franco",
-                  "houseNumber": 123
-                }
-              },
-              {
-            			"id":"2",
-                "name": "Diná Azevedo",
-                "email": "dina@email.com",
-                "password": "Aur@Esfer1ca",
-                "addressUser": {
-                  "city": "Feira de Santana",
-                  "district": "Centro",
-                  "street": "Rua Conselheiro Franco",
-                  "houseNumber": 123
-                }
-              },
-              {
-            			"id":"3",
-                "name": "Adriana Pereira",
-                "email": "adriana@email.com",
-                "password": "Camp0Eletr1co",
-                "addressUser": {
-                  "city": "Feira de Santana",
-                  "district": "Centro",
-                  "street": "Rua Conselheiro Franco",
-                  "houseNumber": 123
-                }
-              },
-              {
-            			"id":"4",
-                "name": "Amanda Ellen",
-                "email": "amanda@email.com",
-                "password": "BoL@deEnerg1a",
-                "addressUser": {
-                  "city": "Feira de Santana",
-                  "district": "Centro",
-                  "street": "Rua Conselheiro Franco",
-                  "houseNumber": 321
-                }
-              }
-            ]
+          text: '{"name":"Teste
+            Novo","email":"testando@email.com","password":"FragMent@s","addressUser":{"city":"Feira
+            de Santana","district":"Centro","street":"Rua A","houseNumber":10}}'
         headers:
           - name: Content-Type
             value: application/json
@@ -506,104 +604,20 @@ collection:
             store: true
           rebuildPath: true
       - url: http://localhost:8080/api/users
-        name: busca tudo
+        name: usuário e-mail repetido (409)
         meta:
-          id: req_fd9824e3d65d42b79f01e6e7bf4c84fc
-          created: 1794352528189
-          modified: 1794438738164
+          id: req_828a117b3fd544f6bee418250d3ec115
+          created: 1794574254940
+          modified: 1794609562092
           isPrivate: false
           description: ""
-          sortKey: -1794352528189
-        method: GET
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: http://localhost:8080/api/users/3
-        name: busca por id
-        meta:
-          id: req_36f3048af5a84226b70b87ca43ab1270
-          created: 1794352598871
-          modified: 1794438728164
-          isPrivate: false
-          description: ""
-          sortKey: -1794352598871
-        method: GET
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: http://localhost:8080/api/users/lote
-        name: nao permite add email duplicado
-        meta:
-          id: req_dd7d291b2849417f9e971a578999c110
-          created: 1794439258087
-          modified: 1794439258087
-          isPrivate: false
-          description: ""
-          sortKey: -1794350568475.5
+          sortKey: -1794573927887
         method: POST
         body:
           mimeType: application/json
-          text: |-
-            [
-              {
-            		"id":"1",
-                "name": "Maria Fabiana",
-                "email": "maria@email.com",
-                "password": "Pa$$aroBrav0",
-                "addressUser": {
-                  "city": "Feira de Santana",
-                  "district": "Centro",
-                  "street": "Rua Conselheiro Franco",
-                  "houseNumber": 123
-                }
-              },
-              {
-            			"id":"2",
-                "name": "Diná Azevedo",
-                "email": "dina@email.com",
-                "password": "Aur@Esfer1ca",
-                "addressUser": {
-                  "city": "Feira de Santana",
-                  "district": "Centro",
-                  "street": "Rua Conselheiro Franco",
-                  "houseNumber": 123
-                }
-              },
-              {
-            			"id":"3",
-                "name": "Adriana Pereira",
-                "email": "adriana@email.com",
-                "password": "Camp0Eletr1co",
-                "addressUser": {
-                  "city": "Feira de Santana",
-                  "district": "Centro",
-                  "street": "Rua Conselheiro Franco",
-                  "houseNumber": 123
-                }
-              },
-              {
-            			"id":"4",
-                "name": "Amanda Ellen",
-                "email": "amanda@email.com",
-                "password": "BoL@deEnerg1a",
-                "addressUser": {
-                  "city": "Feira de Santana",
-                  "district": "Centro",
-                  "street": "Rua Conselheiro Franco",
-                  "houseNumber": 321
-                }
-              }
-            ]
+          text: '{"name":"Teste
+            Novo","email":"testando@email.com","password":"FragMent@s","addressUser":{"city":"Feira
+            de Santana","district":"Centro","street":"Rua A","houseNumber":10}}'
         headers:
           - name: Content-Type
             value: application/json
@@ -615,16 +629,1402 @@ collection:
             send: true
             store: true
           rebuildPath: true
+      - url: http://localhost:8080/api/users
+        name: usuário e-mail inválido (400)
+        meta:
+          id: req_7ac83f9cfc8d4ded8211a550e9f7d8a5
+          created: 1794574321727
+          modified: 1794609635409
+          isPrivate: false
+          description: ""
+          sortKey: -1794573927787
+        method: POST
+        body:
+          mimeType: application/json
+          text: '"email":"abc"'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/users/6af70787712badc973a6ea9b
+        name: atualizar usuário (200)
+        meta:
+          id: req_012b1a6e61e34d95be99813e5eaf5141
+          created: 1794574747148
+          modified: 1794609712892
+          isPrivate: false
+          description: ""
+          sortKey: -1794573927587
+        method: PUT
+        body:
+          mimeType: application/json
+          text: '{"name":"Segundo Teste
+            Novo","email":"testando2@email.com","password":"FragMent@s","addressUser":{"city":"Feira
+            de Santana","district":"Centro","street":"Rua A","houseNumber":10}}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "http://localhost:8080/api/users/000000000000000000000000\t"
+        name: usuário inexistente (404)
+        meta:
+          id: req_3bec55bfc60440b2b2fe7016185bd24b
+          created: 1794574902809
+          modified: 1794609373555
+          isPrivate: false
+          description: ""
+          sortKey: -1794573928037
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/users/6af79fafa78beda4c8585068
+        name: DELETE usuário de teste (204)
+        meta:
+          id: req_28aa867db572493189b3531016639e5c
+          created: 1794609129296
+          modified: 1794613454890
+          isPrivate: false
+          description: ""
+          sortKey: -1794573927387
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/users
+        name: criar usuario1 (200)
+        meta:
+          id: req_16243eef5a86400e9d83a2c1b9b96e76
+          created: 1794609879809
+          modified: 1794610082690
+          isPrivate: false
+          description: ""
+          sortKey: -1794573927937
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Maria Fabiana",
+              "email": "maria@email.com",
+              "password": "Pa$$aroBrav0",
+              "addressUser": {
+                "city": "Feira de Santana",
+                "district": "Centro",
+                "street": "Rua Conselheiro Franco",
+                "houseNumber": 123
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/users
+        name: criar usuario4 (200)
+        meta:
+          id: req_649c91eb83604907ada0a657cc933891
+          created: 1794609895981
+          modified: 1794610189032
+          isPrivate: false
+          description: ""
+          sortKey: -1794573927912
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Amanda Ellen",
+              "email": "amanda@email.com",
+              "password": "BoL@deEnerg1a",
+              "addressUser": {
+                "city": "Feira de Santana",
+                "district": "Centro",
+                "street": "Rua Conselheiro Franco",
+                "houseNumber": 321
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/users
+        name: criar usuario2 (200)
+        meta:
+          id: req_1eb9009cd360428eab6f9765e5eb1f03
+          created: 1794609904847
+          modified: 1794610113958
+          isPrivate: false
+          description: ""
+          sortKey: -1794573927924.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Diná Azevedo",
+              "email": "dina@email.com",
+              "password": "Aur@Esfer1ca",
+              "addressUser": {
+                "city": "Feira de Santana",
+                "district": "Centro",
+                "street": "Rua Conselheiro Franco",
+                "houseNumber": 123
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/users
+        name: criar usuario3 (200)
+        meta:
+          id: req_6c607717f3014d7bb63f9b60b4593e03
+          created: 1794609914273
+          modified: 1794610149726
+          isPrivate: false
+          description: ""
+          sortKey: -1794573927918.25
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Adriana Pereira",
+              "email": "adriana@email.com",
+              "password": "Camp0Eletr1co",
+              "addressUser": {
+                "city": "Feira de Santana",
+                "district": "Centro",
+                "street": "Rua Conselheiro Franco",
+                "houseNumber": 123
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Inventory
+    meta:
+      id: fld_3d2dc4b133fd4a4384ee10ed7b48cf93
+      created: 1794573956380
+      modified: 1794601433968
+      sortKey: -1794568849280.5781
+      description: ""
+    children:
+      - url: http://localhost:8080/api/inventories/low-stock?max=2
+        name: estoque baixo (200)
+        meta:
+          id: req_bac1b984b92647c38f11a0ac53d77748
+          created: 1794574948530
+          modified: 1794608007867
+          isPrivate: false
+          description: ""
+          sortKey: -1794574948530
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories/6af70bad712badc973a6ea9c
+        name: " estoque por id (200)"
+        meta:
+          id: req_79d9fa19c8cd45ae88131bf2033c062e
+          created: 1794574951410
+          modified: 1794607959274
+          isPrivate: false
+          description: ""
+          sortKey: -1794574951410
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories
+        name: listar estoque (200)
+        meta:
+          id: req_c0a2b21c549d4805afeeb4ff15a8ba2f
+          created: 1794574953645
+          modified: 1794607937460
+          isPrivate: false
+          description: ""
+          sortKey: -1794574953645
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories
+        name: adicionar estoque (200)
+        meta:
+          id: req_367ceca470de4adeb36d20af2f6a4d69
+          created: 1794574955488
+          modified: 1794607925040
+          isPrivate: false
+          description: ""
+          sortKey: -1794574958891.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"product":{"id":"6af7011e712badc973a6ea94"},"quantity":4,"expirationDate":"2027-10-15"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories
+        name: estoque produto inexistente (404)
+        meta:
+          id: req_0d0810c3a9dd48229dc671645fc03cc4
+          created: 1794574957849
+          modified: 1794608466703
+          isPrivate: false
+          description: ""
+          sortKey: -1794574948430
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "product": { "id": "000000000000000000000000" },
+              "quantity": 3,
+              "expirationDate": "2027-05-10"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories
+        name: criar estoque (201)
+        meta:
+          id: req_5555efe7a5874a32a76e3695fa3b58fb
+          created: 1794574960026
+          modified: 1794608224276
+          isPrivate: false
+          description: ""
+          sortKey: -1794574960026
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"product":{"id":"6af7011e712badc973a6ea92"},"quantity":3,"expirationDate":"2027-11-13"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories/6af70bad712badc973a6ea9c
+        name: atualizar estoque (200)
+        meta:
+          id: req_24ca53a55e9a4bd3a3aad61fc9385dd7
+          created: 1794575450533
+          modified: 1794607982405
+          isPrivate: false
+          description: ""
+          sortKey: -1794574948480
+        method: PUT
+        body:
+          mimeType: application/json
+          text: '{"product":{"id":"6af7011e712badc973a6ea94"},"quantity":3,"expirationDate":"2027-10-15"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories/6af70bad712badc973a6ea9c
+        name: DELETE estoque (204)
+        meta:
+          id: req_0695f36410c741a2a37a333d9acb532e
+          created: 1794607377948
+          modified: 1794608491513
+          isPrivate: false
+          description: ""
+          sortKey: -1794574948330
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/inventories
+        name: estoque quantidade negativa (400)
+        meta:
+          id: req_b0bf59630e334910ad383d1d5c077cfd
+          created: 1794608209259
+          modified: 1794608446675
+          isPrivate: false
+          description: ""
+          sortKey: -1794574948455
+        method: POST
+        body:
+          mimeType: application/json
+          text: '"quantity":-1'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: ActivityLog
+    meta:
+      id: fld_3b6ba7cb44ac4e0382a4f0d0350d22bc
+      created: 1794573979127
+      modified: 1794601448201
+      sortKey: -1794568849280.3828
+      description: ""
+    children:
+      - url: http://localhost:8080/api/activity-logs
+        name: log sem action (400)
+        meta:
+          id: req_b95e90c6bb804edabd31de9e769fa2db
+          created: 1794576923943
+          modified: 1794613047862
+          isPrivate: false
+          description: ""
+          sortKey: -1794576923943
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "product": { "id": "000000000000000000000000" },
+              "quantity": 3,
+              "expirationDate": "2027-05-10"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/activity-logs/6af793c4a78beda4c858505b
+        name: log por id (200)
+        meta:
+          id: req_5515021aba9e4945be03ad99e6b0e981
+          created: 1794576926144
+          modified: 1794612834327
+          isPrivate: false
+          description: ""
+          sortKey: -1794588786294
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/activity-logs
+        name: " listar logs (200)"
+        meta:
+          id: req_180e9d177bce41e5a7840732ec1146e3
+          created: 1794576928491
+          modified: 1794612342339
+          isPrivate: false
+          description: ""
+          sortKey: -1794588788640
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/activity-logs
+        name: usuario atualizou estoque
+        meta:
+          id: req_29db4bbacd414019b4a58474e563e255
+          created: 1794576930855
+          modified: 1794612951907
+          isPrivate: false
+          description: ""
+          sortKey: -1794576930855
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"user":{"id":"6af793c4a78beda4c858505b"},"action":"Atualizou o estoque
+            de Arroz"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/activity-logs
+        name: usuario registrou compra (200)
+        meta:
+          id: req_80241f23bbb244928cae134fe6b12554
+          created: 1794588760359
+          modified: 1794613199862
+          isPrivate: false
+          description: ""
+          sortKey: -1794588760359
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"user":{"id":"6af793e9a78beda4c858505c"},"action":"Registrou a compra
+            física no Atacadão"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/activity-logs
+        name: usuario criou lista de compras (200)
+        meta:
+          id: req_ec0d3b7695b84115bd3a9c53e8b0a9b2
+          created: 1794588783948
+          modified: 1794612900479
+          isPrivate: false
+          description: ""
+          sortKey: -1794588783948
+        method: POST
+        body:
+          mimeType: application/json
+          text: "{\"user\":{\"id\":\"6af79482a78beda4c858505d\"},\"action\":\"Criou a
+            lista de compras 'Reposição Mensal de Supermercado'\"}"
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/activity-logs
+        name: criar log (201)
+        meta:
+          id: req_c9a61e4a2c4e4d43802d0d44a3692640
+          created: 1794588793332
+          modified: 1794612263872
+          isPrivate: false
+          description: ""
+          sortKey: -1794588793332
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"user":{"id":"6af7938ea78beda4c858505a"},"action":"Verificou o orçamento
+            e o saldo restante de Outubro"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/activity-logs
+        name: criar log teste (200)
+        meta:
+          id: req_bb0a0a651a734cb9893ecb3e4480ded3
+          created: 1794613115133
+          modified: 1794613349771
+          isPrivate: false
+          description: ""
+          sortKey: -1794576920671
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"user":{"id":"6af79fafa78beda4c8585068"},"action":"Verificou o orçamento
+            e o saldo restante de Outubro"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/activity-logs/6af79fd8a78beda4c8585069
+        name: New Request
+        meta:
+          id: req_cd8f0de4a52b444ca9b1e498fd0c207f
+          created: 1794613216485
+          modified: 1794613318623
+          isPrivate: false
+          description: ""
+          sortKey: -1794576920571
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Market
+    meta:
+      id: fld_4ad4ced1badf4249aaa3c287feec70f0
+      created: 1794577993013
+      modified: 1794601471750
+      sortKey: -1794568849272.375
+      description: ""
+    children:
+      - url: http://localhost:8080/api/markets/6af717bc712badc973a6ea9f
+        name: " atualizar mercado (200)"
+        meta:
+          id: req_88588bbe70104d15a7732649e842b410
+          created: 1794568931870
+          modified: 1794608704336
+          isPrivate: false
+          description: ""
+          sortKey: -1794578107593.5
+        method: PUT
+        body:
+          mimeType: application/json
+          text: '{"name":"Atacadão Centro","location":"Rua Nova, 80, Feira de Santana"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/markets/000000000000000000000000
+        name: mercado inexistente (404)
+        meta:
+          id: req_bd87f192bdfb421ea896022034b4fdc7
+          created: 1794577980058
+          modified: 1794608741349
+          isPrivate: false
+          description: ""
+          sortKey: -1794578022493
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/markets
+        name: listar mercados (200)
+        meta:
+          id: req_3df040cc43e245c686b69dbad726b60d
+          created: 1794578080072
+          modified: 1794608674827
+          isPrivate: false
+          description: ""
+          sortKey: -1794578108733.875
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/markets
+        name: mercado campos vazios (400)
+        meta:
+          id: req_fc1578cecefb424199fa963010d75b86
+          created: 1794578082201
+          modified: 1794608723648
+          isPrivate: false
+          description: ""
+          sortKey: -1794578082201
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"name":"","location":""}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/markets/6af717bc712badc973a6ea9f
+        name: mercado por id (200)
+        meta:
+          id: req_92a755cbceb3444da8a08c764222f0a5
+          created: 1794578106073
+          modified: 1794608690023
+          isPrivate: false
+          description: ""
+          sortKey: -1794578108353.75
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/markets
+        name: " criar mercado Atacadão (201)"
+        meta:
+          id: req_3b8ede56eb94466a8642a9f740977dc3
+          created: 1794578109114
+          modified: 1794608649916
+          isPrivate: false
+          description: ""
+          sortKey: -1794578109114
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"name":"Atacadão","location":"Av. Contorno, Feira de Santana"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/markets/6af717bc712badc973a6ea9f
+        name: DELETE mercado (204)
+        meta:
+          id: req_aa2505ea498c4ad9a144c09769d20957
+          created: 1794608557164
+          modified: 1794608755137
+          isPrivate: false
+          description: ""
+          sortKey: -1794578022393
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Purchase
+    meta:
+      id: fld_a99a46d60aee4cf9a495ea43d8cf4bed
+      created: 1794578009580
+      modified: 1794601495169
+      sortKey: -1794568849271.5938
+      description: ""
+    children:
+      - url: http://localhost:8080/api/purchases
+        name: " compra sem itens (400)"
+        meta:
+          id: req_4fb85993d7e34334a7f1882a979d8079
+          created: 1794578988875
+          modified: 1794607739373
+          isPrivate: false
+          description: ""
+          sortKey: -1794578988875
+        method: POST
+        body:
+          mimeType: application/json
+          text: '"purchasedItems":[]'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/purchases/6af71ce7712badc973a6eaa0
+        name: atualizar compra (200)
+        meta:
+          id: req_f0e7cecadee643ae91d4c0151116c72f
+          created: 1794578991261
+          modified: 1794607713393
+          isPrivate: false
+          description: ""
+          sortKey: -1794578991261
+        method: PUT
+        body:
+          mimeType: application/json
+          text: '{"user":{"id":"6af69a2661b075b9d6530a4a"},"market":{"id":"6af717bc712badc973a6ea9f"},"date":"2026-11-12T19:30:00","purchasedItems":[{"productId":"6af7011e712badc973a6ea91","unitPrice":4.25,"quantity":4},{"productId":"6af7011e712badc973a6ea92","unitPrice":7.00,"quantity":3}]}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/purchases/6af71ce7712badc973a6eaa0
+        name: listar compra por id (200)
+        meta:
+          id: req_bb33844e7c2843f9a8865bb334ab3387
+          created: 1794578993543
+          modified: 1794607678586
+          isPrivate: false
+          description: ""
+          sortKey: -1794578993543
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/purchases
+        name: listar compras (200)
+        meta:
+          id: req_95856b6b8522471e8aae0ae8fcc84244
+          created: 1794578996524
+          modified: 1794613659005
+          isPrivate: false
+          description: ""
+          sortKey: -1794578996524
+        method: GET
+        body:
+          mimeType: application/json
+          text: '{"user":{"id":"6af69a2661b075b9d6530a4a"},"market":{"id":"6af717bc712badc973a6ea9f"},"date":"2026-11-12T19:30:00","purchasedItems":[{"productId":"6af7011e712badc973a6ea91","unitPrice":5.50,"quantity":2},{"productId":"6af7011e712badc973a6ea92","unitPrice":7.00,"quantity":3}]}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/purchases
+        name: criar compra (201) total 32.00
+        meta:
+          id: req_d2e4d2bf4b6f491cb1eac1d2019f9352
+          created: 1794579004041
+          modified: 1794614556789
+          isPrivate: false
+          description: ""
+          sortKey: -1794579004041
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"user":{"id":"6af7938ea78beda4c858505a"},"market":{"id":"6af7a218a78beda4c858506a"},"date":"2026-11-12T19:30:00","purchasedItems":[{"productId":"6af7011e712badc973a6ea94","unitPrice":5.50,"quantity":2},{"productId":"6af7011e712badc973a6ea91","unitPrice":7.00,"quantity":3}]}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/purchases
+        name: compra usuário inexistente (404)
+        meta:
+          id: req_cc3cd804d9604fffa48a9416f99ce14f
+          created: 1794580161469
+          modified: 1794607763812
+          isPrivate: false
+          description: ""
+          sortKey: -1794578985751
+        method: POST
+        body:
+          mimeType: application/json
+          text: >-
+            {
+              "user": { "id": "6af69a6d61b075b9d6530a4b" },
+              "market": { "id": "6af717bc712badc973a6ea9f" },
+              "date": "2026-11-12T19:30:00",
+              "purchasedItems": [
+                { "productId": "000000000000000000000000", "unitPrice": 5.50, "quantity": 2 }
+              ]
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/purchases/6af71ce7712badc973a6eaa0
+        name: compra apagada (404)
+        meta:
+          id: req_4c818deea5a44bcc92716572289773bd
+          created: 1794607071071
+          modified: 1794607788690
+          isPrivate: false
+          description: ""
+          sortKey: -1794578985651
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/products/6af7011e712badc973a6ea94
+        name: New Request
+        meta:
+          id: req_7e4072968d504303b7191403dc598029
+          created: 1794614398872
+          modified: 1794614543493
+          isPrivate: false
+          description: ""
+          sortKey: -1794614398872
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Budget
+    meta:
+      id: fld_0b9f163d702e41cdadd363cead002a7e
+      created: 1794581601865
+      modified: 1794601367023
+      sortKey: -1794568849270.8125
+      description: ""
+    children:
+      - url: http://localhost:8080/api/budgets/6accfdb6bf07fa12c9937716
+        name: atualizar orçamento (200)
+        meta:
+          id: req_a88c883186d54ef49d7a23e1ee2ae8e5
+          created: 1794581650702
+          modified: 1794608986190
+          isPrivate: false
+          description: ""
+          sortKey: -1794581650702
+        method: PUT
+        body:
+          mimeType: application/json
+          text: '{"month":"outubro/2026","limitAmount":900.00}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/budgets/6accfdb6bf07fa12c9937716
+        name: orçamento por id (200)
+        meta:
+          id: req_40afd5bd3161427f95ad9ee962cc3ff3
+          created: 1794581653298
+          modified: 1794608965037
+          isPrivate: false
+          description: ""
+          sortKey: -1794581653298
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/budgets
+        name: listar orçamentos (200)
+        meta:
+          id: req_3fc7c89838f4460da8a489b78bfcb362
+          created: 1794581655271
+          modified: 1794608946173
+          isPrivate: false
+          description: ""
+          sortKey: -1794581655271
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/budgets
+        name: orçamento limite zero (400)
+        meta:
+          id: req_a4e3340be244460eb9e74cbf56fffc4a
+          created: 1794581657441
+          modified: 1794608929652
+          isPrivate: false
+          description: ""
+          sortKey: -1794581657441
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"month":"Janeiro/2027","limitAmount":0}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/budgets
+        name: orçamento formato inválido (400)
+        meta:
+          id: req_cf7c38ccbc414947812573b7f0c57cef
+          created: 1794581659575
+          modified: 1794608912015
+          isPrivate: false
+          description: ""
+          sortKey: -1794581659575
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"month":"11/2026","limitAmount":800}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/budgets
+        name: orçamento mês repetido (409)
+        meta:
+          id: req_d3d5b41d2d2d4f5795b6fbd85cd64638
+          created: 1794581662034
+          modified: 1794608895853
+          isPrivate: false
+          description: ""
+          sortKey: -1794581662034
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"month":"Novembro/2026","limitAmount":800.00}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/budgets
+        name: criar orçamento Novembro (201)
+        meta:
+          id: req_f1f59206b80b46c7bafced59f6ef2f26
+          created: 1794581664778
+          modified: 1794608875919
+          isPrivate: false
+          description: ""
+          sortKey: -1794581664778
+        method: POST
+        body:
+          mimeType: application/json
+          text: '{"month":"Novembro/2026","limitAmount":800.00}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/budgets/000000000000000000000000
+        name: orçamento inexistente (404)
+        meta:
+          id: req_70812eff4bb04954b33bc3ad6b226c8b
+          created: 1794582130114
+          modified: 1794609010523
+          isPrivate: false
+          description: ""
+          sortKey: -1794581650602
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/budgets/6accfdb6bf07fa12c9937716
+        name: DELETE orçamento (204)
+        meta:
+          id: req_c218d95540814bfea62498abafe14587
+          created: 1794608783860
+          modified: 1794609052233
+          isPrivate: false
+          description: ""
+          sortKey: -1794581650402
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Transaction
+    meta:
+      id: fld_0faa2c1b282146d3a1ae5231bccc4051
+      created: 1794581617483
+      modified: 1794601369590
+      sortKey: -1794568849270.0312
+      description: ""
+    children:
+      - url: http://localhost:8080/api/transactions/purchase/6af71ce7712badc973a6eaa0
+        name: transações por compra (200)
+        meta:
+          id: req_53eb91942060462db65ba558549132d1
+          created: 1794582372299
+          modified: 1794606770378
+          isPrivate: false
+          description: ""
+          sortKey: -1794600413344.125
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/transactions/6af76c6901f5a9968b09a8dd
+        name: transação por id (200)
+        meta:
+          id: req_be0b1a6b046e43baac2c36bced9b1753
+          created: 1794582375700
+          modified: 1794606751270
+          isPrivate: false
+          description: ""
+          sortKey: -1794600413347.25
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/transactions
+        name: listar transações (200)
+        meta:
+          id: req_6e65197aa0fd4ce29d64ff394016677c
+          created: 1794582377798
+          modified: 1794606738463
+          isPrivate: false
+          description: ""
+          sortKey: -1794600413353.5
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/transactions
+        name: transação duplicada na mesma compra (409)
+        meta:
+          id: req_32c72f6399fd4618ad35ddde5c625fa3
+          created: 1794582379666
+          modified: 1794606881749
+          isPrivate: false
+          description: ""
+          sortKey: -1794600413391
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "purchase": { "id": "6af71ce7712badc973a6eaa0" },
+              "date": "2026-11-12T10:00:00"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/transactions
+        name: " criar transação  (201)"
+        meta:
+          id: req_a39ac211f5b54587b9756300fac4bb97
+          created: 1794582381283
+          modified: 1794606448158
+          isPrivate: false
+          description: ""
+          sortKey: -1794600413441
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "purchase": { "id": "6af71ce7712badc973a6eaa0" },
+              "date": "2026-11-12T10:00:00"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/transactions
+        name: transação com compra inexistente (404)
+        meta:
+          id: req_e5a2d136c7f0445f9f03771ed50d6d38
+          created: 1794582382924
+          modified: 1794606720818
+          isPrivate: false
+          description: ""
+          sortKey: -1794600413366
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "purchase": { "id": "000000000000000000000000" },
+              "date": "2026-11-12T10:00:00"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/transactions/6accfdb6bf07fa12c9937717
+        name: atualizar transação (200)
+        meta:
+          id: req_936ef3c392a74e84b70413a4f9ab9e19
+          created: 1794600413341
+          modified: 1794606788495
+          isPrivate: false
+          description: ""
+          sortKey: -1794600413341
+        method: PUT
+        body:
+          mimeType: application/json
+          text: '{"purchase":{"id":"6af71ce7712badc973a6eaa0"},"amount":15.00,"date":"2026-11-12T10:00:00"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: https://localhost:8080/api/transactions/6accfdb6bf07fa12c9937717
+        name: DELETE transação (204)
+        meta:
+          id: req_a67368f4a9274b84af4a333fadc87ec4
+          created: 1794606252474
+          modified: 1794607022333
+          isPrivate: false
+          description: ""
+          sortKey: -1794600413241
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
 cookieJar:
   name: Default Jar
   meta:
-    id: jar_be29fc688be24d42beffb2915ec28fb4
-    created: 1794340591893
-    modified: 1794340591893
+    id: jar_5c56a02052af1bba327bdd65971c7e2aac8b4f17
+    created: 1794351261806
+    modified: 1794351261806
 environments:
   name: Base Environment
   meta:
-    id: env_9df32aa7d72a48219ba965ccbeaf574d
-    created: 1794340591887
-    modified: 1794340591887
+    id: env_5c56a02052af1bba327bdd65971c7e2aac8b4f17
+    created: 1794351261804
+    modified: 1794407081146
     isPrivate: false
+  data:
+    '"base_url":': ""
+    "": ""
