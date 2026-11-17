@@ -19,13 +19,13 @@
 | **User** (Usuário) | Indivíduo da casa com acesso à plataforma. | Autenticar o acesso e registrar os responsáveis pelas despesas ou alterações no sistema. |
 | **Product** (Produto) | Catálogo base com dados fixos dos itens do mercado. | Padronizar as informações dos itens. |
 | **Category** (Categoria) | Classificação macro do produto. | Organizar o catálogo e facilitar filtros (ex: Laticínios, Limpeza). |
-| **Inventory** (Estoque) | Representação física dos produtos guardados em casa. | Controlar o volume atual dos itens, definir quantidades mínimas de segurança, registrar locais de armazenamento, prazos de validade e auditar os responsáveis pelas atualizações. |
-| **ShoppingList** (Lista de Compras) | Agrupamento de itens que estão em falta. | Planejar a ida ao supermercado e organizar as necessidades de reposição. |
+| **Inventory** (Estoque) | Representação física dos produtos guardados em casa. | Controlar o volume atual dos itens e disparar alertas de escassez. |
+| **ShoppingList** (Lista de Compras) | Agrupamento de itens que estão em falta. | Planejar a ida ao supermercado e organizar as necessidades de reposição, vinculado a um usuário responsável. |
 | **ShoppingListItem** (Item da Lista) | Produto específico vinculado à lista de compras. | Informar a quantidade necessária de um produto específico e se já foi comprado. |
 | **Market** (Mercado) | Estabelecimento físico ou online de compras. | Manter o cadastro de locais frequentes para comparar o histórico de preços. |
-| **Purchase** (Compra) | Registro oficial da visita ao supermercado. | Consolidar os itens adquiridos na ida ao mercado, registrando a data, o local e a lista de itens (cujo total é calculado a partir de `unitPrice * quantity` e registrado em `Transaction`). |
+| **Purchase** (Compra) | Registro oficial da visita ao supermercado. | Consolidar os itens adquiridos no mercado, registrando a data, o local, o usuário responsável, a lista de itens e o valor total (`totalValue`, calculado automaticamente pela API a partir de `unitPrice * quantity`). |
 | **PurchaseItem** (Item da Compra) | Detalhe individual do que foi colocado no carrinho. | Gravar o preço unitário pago e a quantidade real adquirida no momento da compra. |
-| **Budget** (Orçamento) | Meta financeira estabelecida para a residência. | Limitar o teto de gastos disponível mensalmente para compras e despensa. |
+| **Budget** (Orçamento) | Meta financeira estabelecida para a residência. | Limitar o teto de gastos mensal, controlando o valor limite (`limitAmount`), o gasto consolidado pelo sistema (`spentAmount`) e o saldo restante calculado em tempo de execução (`remainingAmount`). |
 | **Transaction** (Transação) | O pagamento gerado por uma compra (relação 1:1 com `Purchase`). | Registrar a saída do dinheiro (`amount`) vinculada à compra (`purchaseId`) e a data do pagamento (`date`). |
 | **ActivityLog** (Log de Atividade) | Histórico de ações realizadas dentro da plataforma. | Rastrear ações importantes (quem criou, editou ou deletou registros) para auditoria e segurança. |
 
@@ -73,25 +73,19 @@
  
 ├── `_id` (Identificador único)
  
-├── `quantity` (Quantidade atual disponível em estoque)
+├── `productId` (Referência ao Produto cadastrado)
  
-├── `minimumQuantity` (Quantidade mínima de segurança para alerta de escassez)
+├── `quantity` (Quantidade atual disponível na despensa)
  
-├── `storageLocation` (Local físico onde o item está guardado, ex: Despensa)
- 
-├── `expirationDate` (Data de validade do lote atual)
- 
-├── `lastUpdated` (Data e hora da última atualização do registro)
- 
-├── `product` (Referência ao Produto associado via `@DocumentReference`)
- 
-└── `responsibleUser` (Referência ao Usuário responsável pela atualização via `@DocumentReference`)
+└── `expirationDate` (Data de validade do lote atual)
  
  
  
 ### **ShoppingList** (Lista de Compras para ir ao mercado)
  
 ├── `_id` (Identificador único)
+
+├── `userId` (Referência ao Usuário que criou/gerencia a lista)
  
 ├── `title` (Nome da lista, ex: Compras de Agosto)
  
@@ -122,8 +116,12 @@
 ├── `_id` (Identificador único)
  
 ├── `marketId` (Referência ao Mercado onde a compra foi feita)
+
+├── `userId` (Referência ao Usuário responsável pela compra)
  
 ├── `date` (Data exata da ida ao mercado)
+
+├── `totalValue` (Valor total da compra, calculado automaticamente pela API a partir dos itens)
  
 └── `purchasedItems` (Array contendo a entidade 'PurchaseItem')
  
@@ -141,7 +139,11 @@
  
 ├── `month` (Mês de referência, ex: Outubro/2026)
  
-└── `limitAmount` (Valor máximo que a família decidiu gastar)
+├── `limitAmount` (Valor máximo que a família decidiu gastar)
+
+├── `spentAmount` (Valor total já gasto no mês, atualizado automaticamente pelo sistema a partir das transações)
+
+└── `remainingAmount` (Saldo restante, calculado em tempo de execução subtraindo o gasto do limite)
  
  
  
