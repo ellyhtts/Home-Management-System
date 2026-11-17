@@ -1,124 +1,125 @@
 package com.Home_Management_System.Aplication_Api.services;
-import com.Home_Management_System.Aplication_Api.repositories.UserRepository;
-import com.Home_Management_System.Aplication_Api.models.ActivityLog;
+
 import com.Home_Management_System.Aplication_Api.models.Inventory;
-import com.Home_Management_System.Aplication_Api.models.User;
-import com.Home_Management_System.Aplication_Api.repositories.ActivityLogRepository;
+import com.Home_Management_System.Aplication_Api.models.ShoppingListItem;
 import com.Home_Management_System.Aplication_Api.repositories.InventoryRepository;
 import com.Home_Management_System.Aplication_Api.repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class InventoryService {
 
-    private final InventoryRepository inventoryRepository;
-    private final ProductRepository productRepository;
-    private final UserRepository userRepository;
-    private final ActivityLogRepository activityLogRepository;
+    @Autowired private InventoryRepository inventoryRepository;
+    @Autowired private ProductRepository productRepository;
+    @Autowired private ActivityLogService activityLogService;
+    @Autowired private ShoppingListService shoppingListService;
 
-    public InventoryService(InventoryRepository inventoryRepository,
-                            ProductRepository productRepository,
-                            UserRepository userRepository,
-                            ActivityLogRepository activityLogRepository) {
-        this.inventoryRepository = inventoryRepository;
-        this.productRepository = productRepository;
-        this.userRepository = userRepository;
-        this.activityLogRepository = activityLogRepository;
+    public List<Inventory> listarTodos() { return inventoryRepository.findAll(); }
+
+    public Optional<Inventory> buscarPorId(String id) { return inventoryRepository.findById(id); }
+
+    /** Só consulta (não altera nada). */
+    public List<Inventory> estoqueBaixo(Integer max) {
+        return estoqueBaixo(max, false, null);
     }
 
-    public List<Inventory> listarTodos() {
-        return inventoryRepository.findAll();
-    }
-
-    public Inventory buscarPorId(String id) {
-        return inventoryRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item de estoque não encontrado com o ID: " + id));
-    }
-
-    public List<Inventory> buscarEstoqueBaixo() {
-        return inventoryRepository.findLowStock();
-    }
-
-    public List<Inventory> buscarPorLocal(String local) {
-        return inventoryRepository.findByStorageLocationIgnoreCase(local);
-    }
-
-    public Inventory salvar(Inventory inventory) {
-
-        if (inventory.getQuantity() == null || inventory.getQuantity() < 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A quantidade em estoque não pode ser negativa.");
+    /**
+     * Consulta os itens com estoque baixo. Se adicionarNaLista = true, os produtos encontrados
+     * também são colocados na lista "Reposição - Estoque baixo" (criada se não existir).
+     * Nada é comprado automaticamente: os itens entram como "não comprados".
+     */
+    public List<Inventory> estoqueBaixo(Integer max, boolean adicionarNaLista, String userId) {
+        if (max == null || max < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O limite deve ser maior ou igual a zero!");
         }
-        if (inventory.getMinimumQuantity() != null && inventory.getMinimumQuantity() < 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A quantidade mínima não pode ser negativa.");
+        if (adicionarNaLista && (userId == null || userId.isBlank())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Informe o userId para adicionar os itens na lista de compras!");
         }
+        List<Inventory> resultado = inventoryRepository.findByQuantityLessThanEqual(max);
+        activityLogService.registrar("Consultou os itens com estoque baixo (até " + max + " unidade(s))");
 
-
-        if (inventory.getProduct() == null || inventory.getProduct().getId() == null ||
-                !productRepository.existsById(inventory.getProduct().getId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto vinculado não foi encontrado no banco de dados.");
+        if (adicionarNaLista) {
+            shoppingListService.adicionarItensDeReposicao(itensDeReposicao(resultado, max), userId);
         }
-
-        if (inventory.getResponsibleUser() == null || inventory.getResponsibleUser().getId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário responsável pela operação é obrigatório.");
-        }
-        User usuario = userRepository.findById(inventory.getResponsibleUser().getId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário responsável não encontrado."));
-
-        inventory.setLastUpdated(LocalDateTime.now());
-        boolean isNovo = (inventory.getId() == null);
-        Inventory itemSalvo = inventoryRepository.save(inventory);
-
-
-        String acao = isNovo ? "CADASTRO_ESTOQUE" : "ATUALIZACAO_ESTOQUE";
-        String detalhes = "Estoque do produto [" + itemSalvo.getProduct().getId() + "] ajustado para " + itemSalvo.getQuantity() + " unid.";
-        activityLogRepository.save(new ActivityLog(acao, detalhes, usuario));
-
-        return itemSalvo;
+        return resultado;
     }
 
-    public List<Inventory> salvarEmLote(List<Inventory> inventories) {
-        if (inventories == null || inventories.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A lista de inventário não pode estar vazia!");
+    /** Monta os itens da lista: quantidade sugerida = o que falta para chegar ao limite (mínimo 1). */
+    private List<ShoppingListItem> itensDeReposicao(List<Inventory> baixos, int max) {
+        Map<String, Integer> porProduto = new LinkedHashMap<>();
+        for (Inventory i : baixos) {
+            if (i.getProduct() == null || i.getProduct().getId() == null) continue;
+            int atual = i.getQuantity() != null ? i.getQuantity() : 0;
+            int necessario = Math.max(1, max - atual);
+            porProduto.merge(i.getProduct().getId(), necessario, Math::max);
         }
-
-        for (Inventory inv : inventories) {
-            if (inv.getQuantity() == null || inv.getQuantity() < 0) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A quantidade do inventário é obrigatória e não pode ser negativa!");
-            }
-            if (inv.getProduct() == null || inv.getProduct().getId() == null || inv.getProduct().getId().isBlank()) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O produto e o seu ID são obrigatórios!");
-            }
-            if (inv.getResponsibleUser() != null && inv.getResponsibleUser().getId() != null) {
-                // Valida se o utilizador responsável existe
-                userRepository.findById(inv.getResponsibleUser().getId())
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utilizador responsável não encontrado!"));
-            }
-        }
-
-        return inventoryRepository.saveAll(inventories);
+        List<ShoppingListItem> itens = new ArrayList<>();
+        porProduto.forEach((productId, qtd) -> {
+            ShoppingListItem item = new ShoppingListItem();
+            item.setProductId(productId);
+            item.setQuantityNeeded(qtd);
+            item.setIsPurchased(false);
+            itens.add(item);
+        });
+        return itens;
     }
 
-    public Inventory atualizar(String id, Inventory inventoryAtualizado) {
-        buscarPorId(id); // Garante que o item existe antes de atualizar
-        inventoryAtualizado.setId(id);
-        return salvar(inventoryAtualizado);
+    public Inventory salvar(Inventory i) {
+        validarEPreencher(i);
+        i.setId(null);
+        Inventory salvo = inventoryRepository.save(i);
+        activityLogService.registrar("Adicionou '" + nomeProduto(i) + "' ao estoque (quantidade: "
+                + i.getQuantity() + ")");
+        return salvo;
+    }
+
+    public Inventory atualizar(String id, Inventory dados) {
+        Inventory existente = inventoryRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Item de estoque não encontrado!"));
+        int quantidadeAnterior = existente.getQuantity() != null ? existente.getQuantity() : 0;
+        validarEPreencher(dados);
+        existente.setProduct(dados.getProduct());
+        existente.setQuantity(dados.getQuantity());
+        existente.setExpirationDate(dados.getExpirationDate());
+        Inventory salvo = inventoryRepository.save(existente);
+        activityLogService.registrar("Atualizou o estoque de '" + nomeProduto(existente)
+                + "': quantidade de " + quantidadeAnterior + " para " + existente.getQuantity());
+        return salvo;
     }
 
     public void deletar(String id) {
-        Inventory item = buscarPorId(id);
-        inventoryRepository.deleteById(id);
-
-        if (item.getResponsibleUser() != null) {
-            activityLogRepository.save(new ActivityLog(
-                    "REMOCAO_ESTOQUE",
-                    "Item do estoque ID [" + id + "] foi removido.",
-                    item.getResponsibleUser()
-            ));
+        if (!inventoryRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item de estoque não encontrado!");
         }
+        String nome = inventoryRepository.findById(id).map(this::nomeProduto).orElse("item");
+        inventoryRepository.deleteById(id);
+        activityLogService.registrar("Removeu '" + nome + "' do estoque");
+    }
+
+    private String nomeProduto(Inventory i) {
+        return i.getProduct() != null && i.getProduct().getName() != null
+                ? i.getProduct().getName() : "item";
+    }
+
+    private void validarEPreencher(Inventory i) {
+        if (i.getProduct() == null || i.getProduct().getId() == null || i.getProduct().getId().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O produto (com id) é obrigatório!");
+        }
+        if (i.getQuantity() == null || i.getQuantity() < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "A quantidade é obrigatória e não pode ser negativa!");
+        }
+        i.setProduct(productRepository.findById(i.getProduct().getId()).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!")));
     }
 }

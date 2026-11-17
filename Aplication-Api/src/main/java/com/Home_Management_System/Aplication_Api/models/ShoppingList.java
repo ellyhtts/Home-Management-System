@@ -3,6 +3,8 @@ package com.Home_Management_System.Aplication_Api.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -10,26 +12,26 @@ import java.util.List;
 public class ShoppingList {
     @Id
     private String id;
-    private String titulo;
-    private LocalDateTime dataCriacao;
-    private String status;
+
 
     @DocumentReference
-    private User criador;
+    @Field("userId")
+    private User user;
 
-    private List<ShoppingListItem> itens; // Embedded List
+    private String title;
+    private LocalDateTime date;
+    private List<ShoppingListItem> items;
 
+    public ShoppingList() {}
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
-    public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
-    public LocalDateTime getDataCriacao() { return dataCriacao; }
-    public void setDataCriacao(LocalDateTime dataCriacao) { this.dataCriacao = dataCriacao; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-    public User getCriador() { return criador; }
-    public void setCriador(User criador) { this.criador = criador; }
-    public List<ShoppingListItem> getItens() { return itens; }
-    public void setItens(List<ShoppingListItem> itens) { this.itens = itens; }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+    public LocalDateTime getDate() { return date; }
+    public void setDate(LocalDateTime date) { this.date = date; }
+    public List<ShoppingListItem> getItems() { return items; }
+    public void setItems(List<ShoppingListItem> items) { this.items = items; }
 }

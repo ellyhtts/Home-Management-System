@@ -2,10 +2,11 @@ package com.Home_Management_System.Aplication_Api.controllers;
 
 import com.Home_Management_System.Aplication_Api.models.Budget;
 import com.Home_Management_System.Aplication_Api.services.BudgetService;
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/budgets")
@@ -13,9 +14,7 @@ public class BudgetController {
 
     private final BudgetService budgetService;
 
-    public BudgetController(BudgetService budgetService) {
-        this.budgetService = budgetService;
-    }
+    public BudgetController(BudgetService budgetService) { this.budgetService = budgetService; }
 
     @PostMapping
     public ResponseEntity<Budget> criar(@RequestBody Budget budget) {
@@ -27,14 +26,14 @@ public class BudgetController {
         return ResponseEntity.ok(budgetService.listarTodos());
     }
 
+    @GetMapping("/month")
+    public ResponseEntity<Budget> buscarPorMes(@RequestParam String month) {
+        return ResponseEntity.ok(budgetService.buscarPorMes(month));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Budget> buscarPorId(@PathVariable String id) {
         return ResponseEntity.ok(budgetService.buscarPorId(id));
-    }
-
-    @GetMapping("/periodo")
-    public ResponseEntity<List<Budget>> buscarPorPeriodo(@RequestParam Integer mes, @RequestParam Integer ano) {
-        return ResponseEntity.ok(budgetService.buscarPorPeriodo(mes, ano));
     }
 
     @PutMapping("/{id}")

@@ -1,18 +1,16 @@
 package com.Home_Management_System.Aplication_Api.models;
 
 public class ShoppingListItem {
-    private String nomeProduto;
-    private Integer quantidade;
-    private String unidadeMedida;
-    private Boolean comprado;
+    private String productId;
+    private Integer quantityNeeded;
+    private Boolean isPurchased;
 
+    public ShoppingListItem() {}
 
-    public String getNomeProduto() { return nomeProduto; }
-    public void setNomeProduto(String nomeProduto) { this.nomeProduto = nomeProduto; }
-    public Integer getQuantidade() { return quantidade; }
-    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
-    public String getUnidadeMedida() { return unidadeMedida; }
-    public void setUnidadeMedida(String unidadeMedida) { this.unidadeMedida = unidadeMedida; }
-    public Boolean getComprado() { return comprado; }
-    public void setComprado(Boolean comprado) { this.comprado = comprado; }
+    public String getProductId() { return productId; }
+    public void setProductId(String productId) { this.productId = productId; }
+    public Integer getQuantityNeeded() { return quantityNeeded; }
+    public void setQuantityNeeded(Integer quantityNeeded) { this.quantityNeeded = quantityNeeded; }
+    public Boolean getIsPurchased() { return isPurchased; }
+    public void setIsPurchased(Boolean isPurchased) { this.isPurchased = isPurchased; }
 }

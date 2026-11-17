@@ -2,10 +2,11 @@ package com.Home_Management_System.Aplication_Api.controllers;
 
 import com.Home_Management_System.Aplication_Api.models.Transaction;
 import com.Home_Management_System.Aplication_Api.services.TransactionService;
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -27,19 +28,14 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.listarTodas());
     }
 
+    @GetMapping("/purchase/{purchaseId}")
+    public ResponseEntity<List<Transaction>> buscarPorCompra(@PathVariable String purchaseId) {
+        return ResponseEntity.ok(transactionService.buscarPorCompra(purchaseId));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Transaction> buscarPorId(@PathVariable String id) {
         return ResponseEntity.ok(transactionService.buscarPorId(id));
-    }
-
-    @GetMapping("/tipo/{tipo}")
-    public ResponseEntity<List<Transaction>> buscarPorTipo(@PathVariable String tipo) {
-        return ResponseEntity.ok(transactionService.buscarPorTipo(tipo));
-    }
-
-    @GetMapping("/budget/{budgetId}")
-    public ResponseEntity<List<Transaction>> buscarPorOrcamento(@PathVariable String budgetId) {
-        return ResponseEntity.ok(transactionService.buscarPorOrcamento(budgetId));
     }
 
     @PutMapping("/{id}")

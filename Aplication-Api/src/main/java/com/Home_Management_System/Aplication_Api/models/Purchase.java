@@ -3,6 +3,9 @@ package com.Home_Management_System.Aplication_Api.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,31 +14,34 @@ import java.util.List;
 public class Purchase {
     @Id
     private String id;
-    private LocalDateTime dataCompra;
-    private BigDecimal valorTotal;
-    private String formaPagamento;
 
     @DocumentReference
-    private User comprador;
-
-    @DocumentReference
+    @Field("marketId")
     private Market market;
 
-    private List<PurchaseItem> itens;
+    @DocumentReference
+    @Field("userId")
+    private User user;
 
+    private LocalDateTime date;
+
+    @Field(targetType = FieldType.DECIMAL128)
+    private BigDecimal totalValue;
+
+    private List<PurchaseItem> purchasedItems;
+
+    public Purchase() {}
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
-    public LocalDateTime getDataCompra() { return dataCompra; }
-    public void setDataCompra(LocalDateTime dataCompra) { this.dataCompra = dataCompra; }
-    public BigDecimal getValorTotal() { return valorTotal; }
-    public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-    public String getFormaPagamento() { return formaPagamento; }
-    public void setFormaPagamento(String formaPagamento) { this.formaPagamento = formaPagamento; }
-    public User getComprador() { return comprador; }
-    public void setComprador(User comprador) { this.comprador = comprador; }
     public Market getMarket() { return market; }
     public void setMarket(Market market) { this.market = market; }
-    public List<PurchaseItem> getItens() { return itens; }
-    public void setItens(List<PurchaseItem> itens) { this.itens = itens; }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+    public LocalDateTime getDate() { return date; }
+    public void setDate(LocalDateTime date) { this.date = date; }
+    public BigDecimal getTotalValue() { return totalValue; }
+    public void setTotalValue(BigDecimal totalValue) { this.totalValue = totalValue; }
+    public List<PurchaseItem> getPurchasedItems() { return purchasedItems; }
+    public void setPurchasedItems(List<PurchaseItem> purchasedItems) { this.purchasedItems = purchasedItems; }
 }

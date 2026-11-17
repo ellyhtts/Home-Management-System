@@ -1,45 +1,42 @@
 package com.Home_Management_System.Aplication_Api.models;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+
+import java.math.BigDecimal;
 
 @Document(collection = "budgets")
 public class Budget {
-
     @Id
     private String id;
+    private String month;
 
-    @Field("mes_referencia")
-    private Integer mesReferencia;
+    @Field(targetType = FieldType.DECIMAL128)
+    private BigDecimal limitAmount;
 
-    @Field("ano_referencia")
-    private Integer anoReferencia;
-
-    @Field("valor_limite")
-    private BigDecimal valorLimite;
-
-    @Field("valor_gasto_atual")
-    private BigDecimal valorGastoAtual;
-
-    @DocumentReference
-    @Field("category_id")
-    private Category category;
+    // Total já gasto no mês (calculado pelo sistema a partir das transações)
+    @Field(targetType = FieldType.DECIMAL128)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private BigDecimal spentAmount = BigDecimal.ZERO;
 
     public Budget() {}
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
-    public Integer getMesReferencia() { return mesReferencia; }
-    public void setMesReferencia(Integer mesReferencia) { this.mesReferencia = mesReferencia; }
-    public Integer getAnoReferencia() { return anoReferencia; }
-    public void setAnoReferencia(Integer anoReferencia) { this.anoReferencia = anoReferencia; }
-    public BigDecimal getValorLimite() { return valorLimite; }
-    public void setValorLimite(BigDecimal valorLimite) { this.valorLimite = valorLimite; }
-    public BigDecimal getValorGastoAtual() { return valorGastoAtual; }
-    public void setValorGastoAtual(BigDecimal valorGastoAtual) { this.valorGastoAtual = valorGastoAtual; }
-    public Category getCategory() { return category; }
-    public void setCategory(Category category) { this.category = category; }
+    public String getMonth() { return month; }
+    public void setMonth(String month) { this.month = month; }
+    public BigDecimal getLimitAmount() { return limitAmount; }
+    public void setLimitAmount(BigDecimal limitAmount) { this.limitAmount = limitAmount; }
+
+    public BigDecimal getSpentAmount() { return spentAmount != null ? spentAmount : BigDecimal.ZERO; }
+    public void setSpentAmount(BigDecimal spentAmount) { this.spentAmount = spentAmount; }
+
+    // Saldo restante = limite - gasto (não é persistido, apenas calculado)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    public BigDecimal getRemainingAmount() {
+        return limitAmount == null ? null : limitAmount.subtract(getSpentAmount());
+    }
 }

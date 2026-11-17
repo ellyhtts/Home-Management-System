@@ -24,21 +24,18 @@ public class PurchaseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Purchase> buscarPorId(@PathVariable String id) {
-        Purchase compra = purchaseService.buscarPorId(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Compra não encontrada!"));
+        Purchase compra = purchaseService.buscarPorId(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Compra não encontrada!"));
         return ResponseEntity.ok(compra);
     }
 
     @PostMapping
     public ResponseEntity<Purchase> criar(@RequestBody Purchase purchase) {
-        Purchase nova = purchaseService.salvar(purchase);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nova);
+        return ResponseEntity.status(HttpStatus.CREATED).body(purchaseService.salvar(purchase));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Purchase> atualizar(@PathVariable String id,
-                                              @RequestBody Purchase purchase) {
+    public ResponseEntity<Purchase> atualizar(@PathVariable String id, @RequestBody Purchase purchase) {
         return ResponseEntity.ok(purchaseService.atualizar(id, purchase));
     }
 

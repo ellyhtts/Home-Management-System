@@ -1,0 +1,17 @@
+.idea/
+backup-*
+mudancas.txt
+incoerencias.txt
+classes.txt
+
+### Arquivos locais e temporarios ###
+.mvn/maven.config
+backup-pom-*.xml
+backup-src-*/
+src-backup/
+src-quebrado/
+insomnia.json
+insomnia2.json
+
+.mvn/maven.config
+target/
