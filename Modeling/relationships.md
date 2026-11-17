@@ -19,13 +19,13 @@ Para garantir a unicidade e a alta performance nas operações, o sistema utiliz
 
 O MongoDB utiliza BSON (Binary JSON), o que nos permite trabalhar com tipos de dados mais ricos e precisos do que o JSON tradicional. No projeto, utilizamos:
 
-* **`ObjectId`**: Para chaves primárias (`_id`) e referências estrangeiras (ex: `productId`, `categoryId`).
+* **`ObjectId`**: Para chaves primárias (`_id`) e referências estrangeiras (ex: `productId`, `categoryId`, `userId`, `marketId`).
 * **`String`**: Para textos, nomes, descrições e e-mails (ex: `name`, `title`, `email`).
 * **`Int32`**: Para números inteiros, como a quantidade de itens no estoque ou o número da casa (ex: `quantity`, `houseNumber`).
-* **`Decimal128`**: Utilizado estritamente para **valores financeiros** (ex: `unitPrice`, `amount`, `limitAmount`). Evita os erros de arredondamento comuns ao usar ponto flutuante (*Double*) em cálculos monetários.
-* **`Date` (`ISODate`)**: Para armazenar datas exatas de validade, criação de listas, compras e logs (ex: `expirationDate`, `timestamp`).
+* **`Decimal128`**: Utilizado estritamente para **valores financeiros** (ex: `unitPrice`, `amount`, `limitAmount`, `spentAmount`). Evita os erros de arredondamento comuns ao usar ponto flutuante (*Double*) em cálculos monetários.
+* **`Date` (`ISODate`)**: Para armazenar datas exatas de validade, criação de listas, compras e logs (ex: `expirationDate`, `timestamp`, `date`).
 * **`Boolean`**: Para status binários (ex: `isPurchased` nos itens da lista de compras).
-* **`Array`**: Para armazenar listas de subdocumentos embutidos (ex: `items` na lista de compras).
+* **`Array`**: Para armazenar listas de subdocumentos embutidos (ex: `items` na lista de compras e `purchasedItems` na compra).
 * **`Object`**: Para organizar atributos agrupados dentro de um documento (ex: `addressUser`).
 
 ---
@@ -62,6 +62,7 @@ Abaixo está o detalhamento do schema flexível mapeado para as coleções do ba
   * `_id`: ObjectId
   * `month`: String
   * `limitAmount`: Decimal128
+  * `spentAmount`: Decimal128 (Calculado e atualizado pelo sistema)
 * **Transação (`transactions`)**
   * `_id`: ObjectId
   * `purchaseId`: ObjectId (Referência 1:1)
@@ -73,17 +74,20 @@ Abaixo está o detalhamento do schema flexível mapeado para as coleções do ba
   * `action`: String
   * `timestamp`: Date
 
-### Coleções com Subdocumentos Embutidos
+### Coleções com Subdocumentos Embutidos (Embedded)
 
 * **Lista de Compras (`shopping_lists`)**
   * `_id`: ObjectId
+  * `userId`: ObjectId (Referência ao usuário criador/gestor)
   * `title`: String
   * `date`: Date
   * `items`: Array of Objects (Embutido: `productId` [ObjectId], `quantityNeeded` [Int32], `isPurchased` [Boolean])
 * **Compra (`purchases`)**
   * `_id`: ObjectId
   * `marketId`: ObjectId (Referência 1:N)
+  * `userId`: ObjectId (Referência ao usuário responsável pela compra)
   * `date`: Date
+  * `totalValue`: Decimal128 (Calculado automaticamente pela API)
   * `purchasedItems`: Array of Objects (Embutido: `productId` [ObjectId], `unitPrice` [Decimal128], `quantity` [Int32])
 
 ---
@@ -95,11 +99,16 @@ No MongoDB, a regra de ouro é: *"Dados que são acessados juntos, devem ser arm
 | Relacionamento | Tipo de Modelagem | Cardinalidade | Justificativa Técnica |
 | :--- | :--- | :---: | :--- |
 | **Usuário ➔ Endereço** | **Embedded** (Embutido) | 1:1 | O endereço pertence exclusivamente ao usuário e é sempre consultado junto com o perfil. Sendo uma relação de 1 para 1, não há risco de crescimento infinito (*unbounded growth*). |
-| **ShoppingList ➔ ShoppingListItem** | **Embedded** (Embutido) | 1:N (Limitado) | Os itens da lista não fazem sentido fora do contexto da própria lista. Quando a lista é apagada, os itens também devem ser. O tamanho do array é previsível (poucas dezenas de itens por lista). |
-| **Compra ➔ PurchaseItem** | **Embedded** (Embutido) | 1:N (Limitado) | Similar à lista de compras. Os itens comprados representam o "recibo" físico. Congelar os dados (produto, quantidade e preço pago) dentro do documento de compra garante a integridade do histórico financeiro. |
-| **Produto ➔ Categoria** | **Reference** (Referência) | 1:N | Categorias são reutilizadas por milhares de produtos. Se o nome da categoria "Limpeza" mudar para "Produtos de Limpeza", basta atualizar um documento na coleção `categories`, evitando anomalias de atualização em massa na coleção `products`. |
-| **Inventário ➔ Produto** | **Reference** (Referência) | 1:N | O produto é um catálogo fixo, enquanto o estoque é dinâmico (vários lotes com diferentes datas de validade). Separar permite gerenciar os lotes físicos de forma autônoma. |
-| **ActivityLog ➔ Usuário** | **Reference** (Referência) | 1:N (Infinito) | Logs de atividade crescem indefinidamente. Embuti-los no documento do usuário faria com que o limite de 16MB do BSON fosse estourado rapidamente. Coleções separadas resolvem isso (Anti-pattern de *Unbounded Arrays* evitado). |
+| **ShoppingList ➔ ShoppingListItem** | **Embedded** (Embutido) | 1:N (Limitado) | Os itens da lista (`ShoppingListItem`) são estruturados como subdocumentos embutidos para otimizar a leitura direta da lista. Eles não fazem sentido fora do contexto da própria lista e seu tamanho é previsível. |
+| **Compra ➔ PurchaseItem** | **Embedded** (Embutido) | 1:N (Limitado) | Os itens comprados (`PurchaseItem`) representam o "recibo" físico e são embutidos para garantir performance e congelar o histórico financeiro da compra. |
+| **ShoppingList ➔ Usuário** | **Reference** (Referência) | 1:N | Vincula a lista de compras ao usuário responsável por sua criação ou gestão através do campo `userId`. |
+| **Compra ➔ Usuário** | **Reference** (Referência) | 1:N | Associa o registro da compra ao usuário responsável pelo lançamento através do campo `userId`. |
+| **Produto ➔ Categoria** | **Reference** (Referência) | 1:N | Categorias são reutilizadas por milhares de produtos. Atualizações em categorias propagam-se de forma consistente sem redundância. |
+| **Inventário ➔ Produto** | **Reference** (Referência) | 1:N | O produto é um catálogo fixo, enquanto o estoque é dinâmico (vários lotes com diferentes validades). |
+| **Compra ➔ Mercado** | **Reference** (Referência) | 1:N | Relaciona o local onde a compra foi efetuada (`marketId`) com a coleção de mercados cadastrados. |
+| **Transação ➔ Compra** | **Reference** (Referência) | 1:1 | Associa cada transação financeira de pagamento à sua respectiva compra geradora (`purchaseId`). |
+| **Budget ➔ Transações** | **Sem Vínculo Físico Direto** | Dinâmico | O `Budget` **não** possui uma referência física direta gravada no banco para as transações. O gasto mensal (`spentAmount`) é calculado dinamicamente em tempo de execução com base no intervalo de datas das transações daquele mês (`date` / `findByDateBetween`). |
+| **ActivityLog ➔ Usuário** | **Reference** (Referência) | 1:N (Infinito) | Logs de atividade crescem indefinidamente, exigindo coleção separada para evitar o estouro do limite de 16MB do BSON. |
 
 ---
 
@@ -108,9 +117,9 @@ No MongoDB, a regra de ouro é: *"Dados que são acessados juntos, devem ser arm
 A modelagem de dados neste projeto foi guiada por dois pilares fundamentais do paradigma NoSQL orientado a documentos: **Otimização de Leitura (Read Performance)** e o **Ciclo de Vida dos Dados (Data Lifecycle)**.
 
 1. **Evitando Junções Desnecessárias (Otimização de Leitura):** 
-   Em bancos relacionais (SQL), normalizamos tudo. No nosso sistema, decidimos **desnormalizar** (usar *Embedded Documents*) entidades como `Endereço`, `Itens da Lista de Compras` e `Itens Comprados`. Isso foi feito porque a aplicação precisará exibir a tela de "Recibo de Compra" ou "Lista de Supermercado" de uma só vez. Ao embutir os itens no documento pai, o MongoDB busca todas as informações em uma única operação de disco (I/O), tornando as respostas da API extremamente rápidas.
+   Em bancos relacionais (SQL), normalizamos tudo. No nosso sistema, decidimos **desnormalizar** (usar *Embedded Documents*) entidades como `Endereço`, `Itens da Lista de Compras` (`ShoppingListItem`) e `Itens Comprados` (`PurchaseItem`). Isso foi feito porque a aplicação precisará exibir a tela de "Recibo de Compra" ou "Lista de Supermercado" de uma só vez. Ao embutir os itens no documento pai, o MongoDB busca todas as informações em uma única operação de disco (I/O), tornando as respostas da API extremamente rápidas.
 
 2. **Respeitando o Ciclo de Vida e Limites Físicos:**
-   Entidades com ciclos de vida independentes foram separadas utilizando **Referências** (Reference/Normalized). O `Produto` precisa existir mesmo se o estoque estiver zerado ou se ele não estiver em nenhuma lista. Da mesma forma, utilizamos referências para `Transações` e `ActivityLogs` para evitar o temido antipadrão de *Unbounded Arrays* (Arrays sem limite de crescimento). Se incluíssemos o histórico de transações dentro do documento de `Orçamento` ou os logs dentro de `Usuário`, o documento excederia o limite máximo de 16MB do MongoDB com o tempo, quebrando a aplicação. 
+   Entidades com ciclos de vida independentes foram separadas utilizando **Referências** (Reference/Normalized). O `Produto` precisa existir mesmo se o estoque estiver zerado. Da mesma forma, utilizamos referências para `Usuários` (`userId` em listas e compras), `Transações` e `ActivityLogs` para manter a integridade relacional onde há múltiplos vínculos ou crescimento contínuo. 
 
-**Conclusão:** O esquema proposto atinge um equilíbrio perfeito: é flexível para lidar com as variabilidades do controle doméstico, denormalizado nas camadas de visualização direta (listas/compras) para máxima performance, e normalizado nos dados categóricos (produtos/categorias/usuários) para manter a integridade da base do sistema ao longo do tempo.
+**Conclusão:** O esquema proposto atinge um equilíbrio perfeito: é flexível para lidar com as variabilidades do controle doméstico, denormalizado nas camadas de visualização direta (listas/compras) para máxima performance, e normalizado nos dados categóricos e de auditoria para garantir a consistência ao longo do tempo.
